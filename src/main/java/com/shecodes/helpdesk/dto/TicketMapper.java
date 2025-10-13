@@ -34,4 +34,20 @@ public class TicketMapper {
 
         return ticket;
     }
+
+    public static TicketGetResponseDTO toDTO(Ticket ticket){
+        return  new TicketGetResponseDTO(
+                ticket.getId(),
+                ticket.getTitle(),
+                ticket.getDescription(),
+                ticket.getCreatedOn(),
+                ticket.getDueDate(),
+                ticket.getEndDate(),
+                ticket.getCategory(),
+                ticket.getPriority(),
+                ticket.getStatus(),
+                ticket.getAuthor().getName(),
+                ticket.getResponsableUser().getName()
+        );
+    }
 }
