@@ -22,8 +22,8 @@ public class Ticket {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "created_on", nullable = false)
+    private LocalDateTime createdOn;
 
 //    @Column(name = "data_ultima_atualizacao", nullable = false)
 //    private LocalDateTime dataAtualizacao;
