@@ -38,7 +38,7 @@ public class Ticket {
 //    @Column(name = "dias_ativos")
 //    private LocalDateTime diasAtivos;
 
-    //PERGUNTAR PRO PROF
+    //
     @Enumerated(EnumType.STRING)
     @JoinColumn(name = "category")
     private Category category;
