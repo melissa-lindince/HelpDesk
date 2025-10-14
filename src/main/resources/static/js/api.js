@@ -40,3 +40,4 @@ export async function updateTicketStatus(ticketId, newStatus) {
         alert('Erro ao atualizar status');
     }
 }
+
