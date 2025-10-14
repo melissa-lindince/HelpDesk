@@ -1,0 +1,294 @@
+  .dashboard{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 32px;
+  }
+  .dashboard-header {
+    padding: 8px 16px;
+    margin-bottom: 32px;
+  }
+
+  .dashboard-header h1 {
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 32px;
+  }
+
+  .dashboard-header p {
+    color: #666;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 14px;
+
+  }
+
+  /* botão novo card */
+  .add-card-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px 16px;
+    margin-top: -3rem;
+  }
+
+  .new-card {
+    display: flex;
+    align-items: center;
+    gap:5px;
+    background: #37b3ec;
+    color: white;
+    border: none;
+    height: 31px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .new-card:hover {
+    background: #1fa3de; /* tom mais escuro no hover */
+    transform: translateY(-1px);
+  }
+
+
+  /* CARDS DE RESUMO */
+  .summary {
+    display: flex;
+    align-items: stretch;
+    gap: 32px;
+    padding:8px 16px;
+    margin-top: 8px;
+    flex-wrap: wrap; /*quebra de linha*/
+  }
+
+  .summary-card {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    padding: 24px 36px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    min-width: 255px;
+  }
+  /* titulo dos cards */
+  .summary-card h3 {
+    position: relative;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 8px;
+    margin-top: -12px;
+  }
+
+  /*numero nos cards*/
+  .summary-card span {
+    font-size: 26px;
+    font-weight: 700;
+    font-style: Bold;
+    color: #2b2b2b;
+  }
+  /* icones dos cards*/
+  .card-icon {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    opacity: 0.9;
+  }
+
+  .card-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .summary-card:nth-child(1) .card-icon svg { color: #1668ff; }
+  .summary-card:nth-child(2) .card-icon svg { color: #ff6a00; }
+  .summary-card:nth-child(3) .card-icon svg { color: #00aaff; }
+  .summary-card:nth-child(4) .card-icon svg { color: #4caf50; }
+
+  /* ======== FILTROS ======== */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 8px 16px;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  /* Input de busca */
+  .filter-input {
+    padding: 10px  14px ;
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+
+    flex-grow: 1;
+    min-width: 250px;
+    width: auto;
+  }
+  .filter-input input:focus {
+    border: 1px solid var(--secondary-color);
+    outline:none;
+  }
+
+  .filter-icon {
+    position: absolute;
+    width: 20px;
+    height: 17px;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+  }
+  .filter-select {
+    padding: 10px 10px 10px 10px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    background-color: white;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    border-right: 10px solid transparent;
+ }
+
+  /* Botão principal dos filtros */
+  .calendar-btn {
+    background-color: #fff;
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+  }
+
+  .calendar-btn:hover {
+    background-color: #f8f8f8;
+    border-color: #ccc;
+  }
+
+  /* Ícone de seta nos botões */
+  .calendar-btn::after {
+    content: "▾";
+    font-size: 12px;
+    color: #555;
+    margin-left: 8px;
+  }
+
+  /* Modal do calendário */
+  .calendar-modal {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 12px;
+    top: 45px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .calendar-modal input[type="month"] {
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  .calendar-modal button {
+    margin-top: 8px;
+    background-color: #7b61ff;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .calendar-modal button:hover {
+    background-color: #6950e9;
+  }
+
+
+  /* ======== TABELA ======== */
+  .table-section {
+    background: white;
+    margin: 8px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+  }
+
+  thead {
+    background: #f3f4f6;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px 16px;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+  }
+
+  tbody tr:hover {
+    background: #f9fafb;
+  }
+
+  /* Tags */
+  .tag {
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    display: inline-block;
+  }
+
+  .tag.bug { background: #ff4d4f; }
+  .tag.alta { background: #ff7a45; }
+  .tag.andamento { background: #69c0ff; }
+
+  /* ======== PAGINAÇÃO ======== */
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #fafafa;
+    font-size: 14px;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .pagination button {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+
+  /* ======== RESPONSIVIDADE ======== */
+  @media (max-width: 1024px) {
+    .filters input, .filters select { flex: 1 1 45%; }
+  }
+
+  @media (max-width: 768px) {
+    .filters input, .filters select { flex: 1 1 100%; }
+    .summary { flex-direction: column; }
+    .add-card-container { justify-content: center; }
+    .table-section { margin: 1rem; }
+  }

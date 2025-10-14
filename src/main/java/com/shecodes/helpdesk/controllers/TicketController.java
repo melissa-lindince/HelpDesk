@@ -4,6 +4,8 @@ import com.shecodes.helpdesk.dto.TicketResponseDTO;
 import com.shecodes.helpdesk.dto.TicketPatchStatusDto;
 import com.shecodes.helpdesk.dto.TicketPostRequestDto;
 import com.shecodes.helpdesk.dto.TicketPutRequestDto;
+
+import com.shecodes.helpdesk.dto.*;
 import com.shecodes.helpdesk.models.Status;
 import com.shecodes.helpdesk.models.Ticket;
 import com.shecodes.helpdesk.services.TicketService;
@@ -51,8 +53,9 @@ public class TicketController {
     }
 
     @PatchMapping("/{id}")
-    public Ticket updateStatusTicket(@Valid @RequestBody TicketPatchStatusDto ticketPatchStatusDto, @PathVariable("id") Integer id){
-        return ticketService.updateStatusTicket(id, ticketPatchStatusDto.status());
+    public TicketResponseDTO  updateStatusTicket(@Valid @RequestBody TicketPatchStatusDto ticketPatchStatusDto, @PathVariable("id") Integer id){
+        Ticket ticket = ticketService.updateStatusTicket(id, ticketPatchStatusDto.status());
+        return TicketMapper.toDTO(ticket);
     }
 
     @DeleteMapping("/{id}")
