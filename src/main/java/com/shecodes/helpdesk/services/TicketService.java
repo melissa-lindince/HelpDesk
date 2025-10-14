@@ -3,6 +3,7 @@ package com.shecodes.helpdesk.services;
 import com.shecodes.helpdesk.dto.TicketResponseDTO;
 import com.shecodes.helpdesk.dto.TicketMapper;
 import com.shecodes.helpdesk.exception.NotFoundException;
+import com.shecodes.helpdesk.models.Category;
 import com.shecodes.helpdesk.models.Priority;
 import com.shecodes.helpdesk.models.Status;
 import com.shecodes.helpdesk.models.Ticket;
@@ -90,5 +91,10 @@ public class TicketService {
 
         ticket.setDueDate(dueDate);
         return dueDate;
+    }
+
+    public List<TicketResponseDTO> filter(Status status, Priority priority, Category category, LocalDateTime startDate, LocalDateTime endDate) {
+        return ticketRepository.filter(status,category,priority,startDate,endDate)
+                .stream().map(TicketMapper::toDTO).collect(Collectors.toList());
     }
 }

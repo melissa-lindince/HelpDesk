@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -45,7 +46,7 @@ public class GlobalExceptionHandler {
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .toList();
 
-        body.put("messages", errors);
+        body.put("message", errors);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
@@ -72,5 +73,16 @@ public class GlobalExceptionHandler {
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
+    //tratar erro de data com formato inválido
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Object> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        String message = String.format(
+                "O parâmetro '%s' possui um formato inválido. Valor recebido: '%s'. Tipo esperado: %s",
+                ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName()
+        );
+
+        return ResponseEntity.badRequest().body(message);
     }
 }
