@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+//dto para lidar com requisições de post ticket -> permite validações, requisição padronizada
 public record TicketPostRequestDto(
         @NotBlank(message = "O título não pode estar vazio.")
         @Size(max = 35, message = "O título deve ser menor que 35 caracteres.")

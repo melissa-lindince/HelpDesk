@@ -2,7 +2,6 @@ package com.shecodes.helpdesk.controllers;
 
 import com.shecodes.helpdesk.dto.UserGetResponseDTO;
 import com.shecodes.helpdesk.dto.UserMapper;
-import com.shecodes.helpdesk.models.User;
 import com.shecodes.helpdesk.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

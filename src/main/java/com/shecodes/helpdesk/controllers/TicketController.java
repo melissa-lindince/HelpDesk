@@ -1,6 +1,6 @@
 package com.shecodes.helpdesk.controllers;
 
-import com.shecodes.helpdesk.dto.TicketGetResponseDTO;
+import com.shecodes.helpdesk.dto.TicketResponseDTO;
 import com.shecodes.helpdesk.dto.TicketPatchStatusDto;
 import com.shecodes.helpdesk.dto.TicketPostRequestDto;
 import com.shecodes.helpdesk.dto.TicketPutRequestDto;
@@ -30,24 +30,24 @@ public class TicketController {
     }
 
     @GetMapping("/{id}")
-    public TicketGetResponseDTO consultTicket(@PathVariable("id") Integer id){
+    public TicketResponseDTO consultTicket(@PathVariable("id") Integer id){
         return toDTO(ticketService.consultTicket(id));
     }
 
     @GetMapping("/all")
-    public List<TicketGetResponseDTO> consultAllTickets(){
+    public List<TicketResponseDTO> consultAllTickets(){
         return ticketService.listAllTickets();
     }
 
     @GetMapping("/filter/{status}")
-    public List<TicketGetResponseDTO> consultByStatus(@PathVariable("status")Status status){
+    public List<TicketResponseDTO> consultByStatus(@PathVariable("status")Status status){
         return ticketService.listByStatus(status);
     }
 
     @PutMapping("/{id}")
-    public Ticket updateTicket(@Valid @RequestBody TicketPutRequestDto ticketPutRequestDto,@PathVariable("id") Integer id){
+    public TicketResponseDTO updateTicket(@Valid @RequestBody TicketPutRequestDto ticketPutRequestDto, @PathVariable("id") Integer id){
         Ticket ticket = toModel(ticketPutRequestDto);
-        return ticketService.updateTicket(ticket,id);
+        return toDTO(ticketService.updateTicket(ticket,id));
     }
 
     @PatchMapping("/{id}")

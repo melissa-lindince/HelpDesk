@@ -3,8 +3,10 @@ package com.shecodes.helpdesk.dto;
 import com.shecodes.helpdesk.models.Ticket;
 import com.shecodes.helpdesk.models.User;
 
+//permite transformar um dto <-> entidade -> útil para deixar controller mais limpo, separa logica de mapeamento
 public class TicketMapper {
 
+    //transformar um dto de criação de ticket em entidade ticket -> permitir que service use
     public static Ticket toModel(TicketPostRequestDto dto){
         Ticket ticket = new Ticket();
         User author = new User();
@@ -22,6 +24,7 @@ public class TicketMapper {
         return ticket;
     }
 
+    //overload (sobrecarga) -> transformar em entidade ticket mas com parametro diferente(outro dto)
     public static Ticket toModel(TicketPutRequestDto dto){
         Ticket ticket = new Ticket();
         User responsable = new User();
@@ -35,8 +38,11 @@ public class TicketMapper {
         return ticket;
     }
 
-    public static TicketGetResponseDTO toDTO(Ticket ticket){
-        return  new TicketGetResponseDTO(
+    //transformar um ticket em dto ->
+    // resposta padronizada(utilizavel + de uma vez),
+    // evitar recursividade(relacionamento onetomany: chamada do pai que chama filho que refencia pai)
+    public static TicketResponseDTO toDTO(Ticket ticket){
+        return  new TicketResponseDTO(
                 ticket.getId(),
                 ticket.getTitle(),
                 ticket.getDescription(),
