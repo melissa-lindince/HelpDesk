@@ -50,6 +50,11 @@ public class TicketService {
         }
         if (ticket.getStatus() != null){
             ticketToUpdate.setStatus(ticket.getStatus());
+            if(ticketToUpdate.getStatus().equals(Status.FINALIZADO)){
+                ticketToUpdate.setEndDate(LocalDateTime.now());
+            } else{
+                ticketToUpdate.setEndDate(null);
+            }
         }
         if (ticket.getResponsableUser().getId() != null){
             ticketToUpdate.setResponsableUser(ticket.getResponsableUser());
@@ -61,6 +66,11 @@ public class TicketService {
         Ticket ticketToUpdateStatus = ticketRepository.findById(id).orElseThrow(() -> new NotFoundException("Ticket não encontrado."));
 
         ticketToUpdateStatus.setStatus(status);
+        if(status.equals(Status.FINALIZADO)){
+            ticketToUpdateStatus.setEndDate(LocalDateTime.now());
+        } else{
+            ticketToUpdateStatus.setEndDate(null);
+        }
         return ticketRepository.save(ticketToUpdateStatus);
     }
 
