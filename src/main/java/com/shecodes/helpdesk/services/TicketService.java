@@ -59,6 +59,7 @@ public class TicketService {
 
     public Ticket updateStatusTicket(Integer id, Status status){
         Ticket ticketToUpdateStatus = ticketRepository.findById(id).orElseThrow(() -> new NotFoundException("Ticket não encontrado."));
+
         ticketToUpdateStatus.setStatus(status);
         return ticketRepository.save(ticketToUpdateStatus);
     }
