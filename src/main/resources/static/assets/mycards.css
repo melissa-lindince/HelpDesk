@@ -1,0 +1,229 @@
+:root {
+    --secondary-color: #7F8286;
+    --line-color: #e0e0e0;
+    --border-radius: 10px;
+    --color-button: #000000;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 32px;
+}
+
+.page-header {
+    margin-bottom: 32px;
+}
+
+.page-header h2 {
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+
+.filters {
+    margin-bottom: 32px;
+    display: flex;
+    gap: 16px;
+}
+
+.search-box {
+    flex: 1;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.search-box input:focus {
+    border: 1px solid var(--secondary-color);
+    outline:none;
+}
+
+.search-icon {
+    position: absolute;
+    width: 20px;
+    height: 17px;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.filter-select {
+    padding: 10px 10px 10px 10px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    background-color: white;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    border-right: 10px solid transparent;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+.status-icon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-icon.andamento {
+    background-color: #4c6fff;
+}
+
+.status-icon.pendente {
+    background-color: #ffa500;
+}
+
+.status-icon.concluido {
+    background-color: #00c853;
+}
+
+.priority-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.priority-badge.alta {
+    background-color: #ffe5e5;
+    color: #d32f2f;
+}
+
+.priority-badge.média {
+    background-color: #fff4e5;
+    color: #f57c00;
+}
+
+.priority-badge.baixa {
+    background-color: #e5f8f3;
+    color: #00a86b;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.card-description {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.card-details {
+    margin-bottom: 6px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line-color);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: var(--secondary-color);
+}
+
+.value-label {
+    font-size: 12px;
+    color: #333;
+    font-weight: 500;
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px solid var(--line-color);
+    background-color: white;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-outline {
+    background-color: white;
+    border: 1px solid var(--line-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--line-color);
+}
+
+.btn-primary {
+    background-color: var(--color-button);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #333;
+}

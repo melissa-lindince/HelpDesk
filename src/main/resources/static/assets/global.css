@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #f8f9fb;
+    color: #1c1c1c;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+ul {
+    display: flex;
+}
+
+li {
+    list-style: none;
+}
+
+input {
+    border: none;
+}
+
+select {
+    border: none;
+    cursor: pointer;
+}
