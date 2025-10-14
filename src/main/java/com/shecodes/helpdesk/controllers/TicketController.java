@@ -6,6 +6,8 @@ import com.shecodes.helpdesk.dto.TicketPostRequestDto;
 import com.shecodes.helpdesk.dto.TicketPutRequestDto;
 
 import com.shecodes.helpdesk.dto.*;
+import com.shecodes.helpdesk.models.Category;
+import com.shecodes.helpdesk.models.Priority;
 import com.shecodes.helpdesk.models.Status;
 import com.shecodes.helpdesk.models.Ticket;
 import com.shecodes.helpdesk.services.TicketService;
@@ -50,8 +52,8 @@ public class TicketController {
 
     @GetMapping("/filter")
     public List<TicketResponseDTO> filterTickets(
-            @RequestParam(required = false) Status status, @RequestParam(required = false)Priority priority,
-            @RequestParam(required = false)Category category,
+            @RequestParam(required = false) Status status, @RequestParam(required = false) Priority priority,
+            @RequestParam(required = false) Category category,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)@RequestParam(required = false)LocalDateTime startDate,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)@RequestParam(required = false)LocalDateTime endDate
             ){
