@@ -4,13 +4,17 @@ import com.shecodes.helpdesk.dto.TicketResponseDTO;
 import com.shecodes.helpdesk.dto.TicketPatchStatusDto;
 import com.shecodes.helpdesk.dto.TicketPostRequestDto;
 import com.shecodes.helpdesk.dto.TicketPutRequestDto;
+import com.shecodes.helpdesk.models.Category;
+import com.shecodes.helpdesk.models.Priority;
 import com.shecodes.helpdesk.models.Status;
 import com.shecodes.helpdesk.models.Ticket;
 import com.shecodes.helpdesk.services.TicketService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.shecodes.helpdesk.dto.TicketMapper.toDTO;
@@ -42,6 +46,16 @@ public class TicketController {
     @GetMapping("/filter/{status}")
     public List<TicketResponseDTO> consultByStatus(@PathVariable("status")Status status){
         return ticketService.listByStatus(status);
+    }
+
+    @GetMapping("/filter")
+    public List<TicketResponseDTO> filterTickets(
+            @RequestParam(required = false) Status status, @RequestParam(required = false)Priority priority,
+            @RequestParam(required = false)Category category,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)@RequestParam(required = false)LocalDateTime startDate,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)@RequestParam(required = false)LocalDateTime endDate
+            ){
+        return ticketService.filter(status, priority, category, startDate, endDate);
     }
 
     @PutMapping("/{id}")
