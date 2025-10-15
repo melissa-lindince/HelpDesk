@@ -136,7 +136,7 @@ const cards = [
       row.addEventListener('click', () => {
         const id = row.dataset.id;
         localStorage.setItem('cardsMock', JSON.stringify(cards));
-        window.location.href = `card-details.html?id=${id}`;
+        window.location.href = `edit-cards.html?id=${id}`;
       });
     });
   
