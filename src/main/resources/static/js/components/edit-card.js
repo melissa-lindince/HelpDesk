@@ -1,12 +1,14 @@
+import { updateTicket } from "../api/ticket.js";
+import { renderCards } from "./cards.js";
+
 lucide.createIcons();
 
 export function getButtonText(mode) {
-     const buttonsText = {
-      view: "Editar",
-      edit: "Salvar",
-      create: "Criar"
-    }
-
+    const buttonsText = {
+        view: "Editar",
+        edit: "Salvar",
+        create: "Criar"
+    };
     return buttonsText[mode];
 }
 
@@ -37,9 +39,8 @@ export function cardModal(card, mode) {
               <select id="card-category" name="category" required disabled>
                 <option value="">Selecione</option>
                 <option value="BUG">Bug</option>
-                <option value="MELHORIA">melhoria</option>
-                <option value="DUVIDA">duvida</option>
-                <option value="SUPORTE">suporte</option>
+                <option value="FEATURE">Melhoria</option>
+                <option value="SUPORTE">Suporte</option>
               </select>
             </div>
             <div class="form-group">
@@ -58,9 +59,9 @@ export function cardModal(card, mode) {
               <label for="card-responsible">Responsável *</label>
               <select id="card-responsible" name="responsible" required disabled>
                 <option value="">Selecione</option>
-                <option value="Larissa Faria">Larissa Faria</option>
-                <option value="João Silva">João Silva</option>
-                <option value="Camila Rocha">Camila Rocha</option>
+                <option value="1">Larissa Faria</option>
+                <option value="2">João Silva</option>
+                <option value="3">Camila Rocha</option>
               </select>
             </div>
             <div class="form-group">
@@ -87,7 +88,7 @@ export function cardModal(card, mode) {
           </div>
         </form>
       </div>
-    </div>  
+    </div>
     `;
 
     document.body.appendChild(modalOverlay);
@@ -96,26 +97,55 @@ export function cardModal(card, mode) {
     const editBtn = modalOverlay.querySelector("#editBtn");
     const cancelBtn = modalOverlay.querySelector("#cancelBtn");
 
+    // preencher os campos se houver card
     if (card) {
         form.querySelector("#card-title").value = card.title || "";
         form.querySelector("#card-description").value = card.description || "";
         form.querySelector("#card-category").value = card.category || "";
         form.querySelector("#card-priority").value = card.priority || "";
-        form.querySelector("#card-responsible").value = card.responsible || "";
+        form.querySelector("#card-responsible").value = card.responsibleId || "";
         form.querySelector("#card-created").value = card.createdAt || "";
         form.querySelector("#card-dueDate").value = card.dueDate || "";
         form.querySelector("#card-author").value = card.author || "";
     }
 
-    let isEditing = mode === "edit" || mode === "create"; // se for edit/create já pode editar
+    let isEditing = mode === "edit" || mode === "create";
 
-    editBtn.addEventListener("click", () => {
-        isEditing = !isEditing;
-        form.querySelectorAll("input, textarea, select").forEach(el => el.disabled = !isEditing);
-        editBtn.textContent = isEditing ? getButtonText("edit") : getButtonText("view");
+    editBtn.addEventListener("click", async () => {
+    if (!isEditing) {
 
-        cancelBtn.textContent = isEditing ? "Cancelar" : (mode !== "edit" && mode !== "create" ? "Sair" : "Cancelar");
-    });
+        isEditing = true;
+        form.querySelectorAll("input, textarea, select").forEach(el => el.disabled = false);
+        editBtn.textContent = getButtonText("edit");
+        cancelBtn.textContent = "Cancelar";
+    } else {
+
+        const updatedData = {
+            category: form.querySelector("#card-category").value.toUpperCase(),
+            priority: form.querySelector("#card-priority").value.toUpperCase()
+        };
+
+        try {
+            const updatedTicket = await updateTicket(card.id, updatedData);
+            console.log("Ticket atualizado:", updatedTicket);
+
+            const cardEl = document.querySelector(`.card[data-id="${card.id}"]`);
+            if (cardEl) {
+
+                const categoryEl = cardEl.querySelector(".card-category"); // ajusta a classe se tiver diferente
+                const priorityEl = cardEl.querySelector(".priority-badge");
+                if (categoryEl) categoryEl.textContent = updatedTicket.category;
+                if (priorityEl) priorityEl.textContent = updatedTicket.priority;
+            }
+
+            modalOverlay.remove();
+        } catch (err) {
+            console.error(err);
+            alert("Erro ao atualizar o ticket");
+        }
+        
+    }
+});
 
     cancelBtn.addEventListener("click", () => {
         modalOverlay.remove();
@@ -123,5 +153,3 @@ export function cardModal(card, mode) {
 
     return modalOverlay;
 }
-
-
