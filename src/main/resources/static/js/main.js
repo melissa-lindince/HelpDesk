@@ -1,4 +1,4 @@
-import { fetchTickets, updateTicketStatus } from './api.js';
+import { fetchTickets, updateTicketStatus } from './api/api.js';
 import { renderCards, formatText, getNextStatus } from './ui.js';
 
 const searchInput = document.getElementById('searchInput');

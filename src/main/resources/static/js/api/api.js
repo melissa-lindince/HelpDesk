@@ -1,5 +1,4 @@
-
-export async function fetchTickets() {
+export async function getTickets() {
     try {
         const response = await fetch('http://localhost:8080/tickets/all');
         if (!response.ok) throw new Error('Erro ao buscar cards');
