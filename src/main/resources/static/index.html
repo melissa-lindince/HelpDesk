@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Help Desk - Dashboard</title>
+  <!-- inicial configs-->
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Help Desk - Dashboard</title>
 
-  <link rel="stylesheet" href="./assets/global.css"/>
-  <link rel="stylesheet" href="./assets/header-layout.css"/>
-  <link rel="stylesheet" href="./assets/dashboard.css"/>
+    <link rel="stylesheet" href="/HelpDesk/src/main/resources/static/assets/global.css"/>
+    <link rel="stylesheet" href="/HelpDesk/src/main/resources/static/assets/header-layout.css"/>
+    <link rel="stylesheet" href="/HelpDesk/src/main/resources/static/assets/dashboard.css"/>
+    <!-- alterar src se for necessário -->
+    <script src="js/dashboard.js" defer></script>
 
-  <script src="https://unpkg.com/lucide@latest"></script>
-</head>
+    <!-- import icons: -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
 
-<body>
+  <body>
+    <!-- HEADER -->
     <header class="top-bar">
       <div class="left-header">
         <div class="logo">
-
+          <img src="/HelpDesk/src/main/resources/static/images/logo-suporte-on-line-50.png alt="Help Desk"/>
           <div>
             <h2>Help Desk</h2>
             <p>Central de soluções</p>
@@ -26,7 +31,7 @@
         <nav class="nav-links">
           <ul>
             <li>
-              <a class="active" href="index.html">
+              <a class="active" href="dashboard.html">
                 <i data-lucide="layout-dashboard"></i>
                 Dashboard
               </a>
@@ -52,18 +57,21 @@
       </div>
     </header>
 
+    <!-- BODY -->
     <main class="dashboard">
       <div class="dashboard-header">
         <h1>Dashboard</h1>
         <p>Gerencie todos os seus cards em um só lugar</p>
       </div>
 
+      <!-- Botão Novo Card -->
       <div class="add-card-container">
         <button class="new-card">
           <i data-lucide="plus"></i> Novo card
         </button>
       </div>
 
+      <!-- Cards de resumo -->
       <section class="summary">
         <div class="summary-card">
           <div class="card-icon"><i data-lucide="wallet-cards"></i></div>
@@ -87,76 +95,67 @@
         </div>
       </section>
 
+      <!-- Filtros -->
       <section class="filters">
         <div class="filter-input">
           <i class="filter-icon" data-lucide="search"></i>
           <input type="text" id="filterInput" placeholder="Buscar card">
         </div>
-
         <select id="statusFilter" class="filter-select">
           <option value="">Todos os Status</option>
           <option value="em andamento">Em andamento</option>
           <option value="pendente">Pendente</option>
           <option value="concluido">Concluído</option>
         </select>
-
+        <!-- Botão que abre o calendário -->
         <button id="btnDataVencimento" class="calendar-btn"> Data de vencimento</button>
-
+        <!-- Calendário (inicialmente oculto) -->
         <div id="calendarModal" class="calendar-modal">
-          <label for="monthSelect">Selecione o mês:</label>
-          <input type="month" id="monthSelect">
-          <button id="closeCalendar">OK</button>
+              <label for="startDate">De:</label>
+              <input type="date" id="startDate">
+              <label for="endDate">Até:</label>
+              <input type="date" id="endDate">
+              <button id="closeCalendar">OK</button>
         </div>
       </section>
 
+      <!-- Tabela -->
       <section class="table-section">
-          <table>
-            <thead>
-              <tr>
-                <th>Cards</th>
-                <th>Categoria</th>
-                <th>Prioridade</th>
-                <th>Status</th>
-                <th>Responsável</th>
-                <th>Criado em</th>
-                <th>Vencimento</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <strong>Login não está funcionando</strong>
-                  <p>Usuário relata erro ao tentar fazer login no sistema...</p>
-                </td>
-                <td><span class="tag bug">Bug</span></td>
-                <td><span class="tag alta">Alta</span></td>
-                <td><span class="tag andamento">Em andamento</span></td>
-                <td>Larissa Faria</td>
-                <td>11/10/2025</td>
-                <td>15/10/2025</td>
-              </tr>
-            </tbody>
-          </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Cards</th>
+              <th>Categoria</th>
+              <th>Prioridade</th>
+              <th>Status</th>
+              <th>Responsável</th>
+              <th>Criado em</th>
+              <th>Vencimento</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
 
-          <div class="pagination">
-            <p>Mostrando 1 até 7 de 53 cards</p>
-            <label>Itens por página:
-              <select>
-                <option>7</option>
-                <option>10</option>
-              </select>
-            </label>
-            <div>
-              <button>◀ Anterior</button>
-              <span>1</span>
-              <button>Próximo ▶</button>
-            </div>
+        <div class="pagination">
+          <p>Mostrando 1 até 7 de 53 cards</p>
+          <label>Itens por página:
+            <select>
+              <option>7</option>
+              <option>10</option>
+            </select>
+          </label>
+          <div>
+            <button>◀ Anterior</button>
+            <span>1</span>
+            <button>Próximo ▶</button>
           </div>
+        </div>
       </section>
     </main>
 
     <script>
-        lucide.createIcons();
+      lucide.createIcons();
     </script>
   </body>
 </html>
