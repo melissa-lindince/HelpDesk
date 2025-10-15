@@ -38,6 +38,13 @@ public class TicketMapper {
         return ticket;
     }
 
+    public static Ticket toModel(TicketPatchDTO dto){
+    Ticket ticket = new Ticket();
+       if(dto.category() != null) ticket.setCategory(dto.category());
+        if(dto.priority() != null) ticket.setPriority(dto.priority());
+
+    return ticket;
+}
     //transformar um ticket em dto ->
     // resposta padronizada(utilizavel + de uma vez),
     // evitar recursividade(relacionamento onetomany: chamada do pai que chama filho que refencia pai)
