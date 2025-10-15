@@ -7,6 +7,12 @@ import { getTickets } from "./api/ticket.js"
   let selectedEndDate = null;
 
   //=======================================================
+  //elementos do resumo
+  const totalCards = document.getElementById('total-cards');
+  const pendentes = document.getElementById('cards-pendentes');
+  const andamento = document.getElementById('cards-andamento');
+  const finalizados = document.getElementById('cards-finalizados');
+
   //elementos da tabela
   const tableBody = document.querySelector(".table-section tbody");
   const statusFilter = document.getElementById('statusFilter');
@@ -256,11 +262,20 @@ import { getTickets } from "./api/ticket.js"
     }
   });
 
+  //update resumos
+  function updateResumo(){
+    totalCards.textContent = cards.length;
+    pendentes.textContent = cards.filter(card => card.status == 'pendente').length;
+    andamento.textContent = cards.filter(card => card.status == 'em_andamento').length;
+    finalizados.textContent = cards.filter(card => card.status == 'finalizado').length;
+  }
+
   (async function init() {
       try {
           cards = await getTickets();
           console.log(cards)
           filteredCards = [...cards];
+          updateResumo();
           renderTable(cards)
       } catch(error) {
           console.log(error)
