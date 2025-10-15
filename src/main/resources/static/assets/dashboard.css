@@ -299,8 +299,8 @@ tbody tr:hover {
 /* ===== CORES DE TAGS ===== */
 
 /* ===== STATUS ===== */
-.tag.andamento { background-color: #CEFAFE ; color:#49AED6 ; }
-.tag.concluido { background-color: #DCFCE7; color: #0BA946; }
+.tag.em_andamento { background-color: #CEFAFE ; color:#49AED6 ; }
+.tag.finalizado { background-color: #DCFCE7; color: #0BA946; }
 .tag.pendente { background-color: #FEF9C2; color: #996A3B; }
 
 /* ===== CATEGORIA ===== */

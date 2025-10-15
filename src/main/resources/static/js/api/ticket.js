@@ -8,9 +8,13 @@ export async function getTickets() {
             id: ticket.id,
             title: ticket.title,
             description: ticket.description,
-            category: ticket.category,
-            priority: ticket.priority,
-            status: ticket.status.toLowerCase()
+            category: ticket.category.toLowerCase(),
+            priority: ticket.priority.toLowerCase(),
+            status: ticket.status.toLowerCase(),
+            author: ticket.authorName,
+            responsable: ticket.responsableName,
+            dueDate: ticket.dueDate,
+            createdOn: ticket.createdOn
         }));
     } catch (error) {
         console.error(error);
