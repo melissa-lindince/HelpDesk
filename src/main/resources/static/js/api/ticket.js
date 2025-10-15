@@ -20,7 +20,7 @@ export async function getTickets() {
 
 export async function updateTicketStatus(ticketId, newStatus) {
     try {
-        const response = await fetch(`http://localhost:8080/tickets/${ticketId}`, {
+        const response = await fetch(`http://localhost:8080/tickets/status/${ticketId}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status: newStatus.toUpperCase() })
@@ -37,4 +37,56 @@ export async function updateTicketStatus(ticketId, newStatus) {
         alert('Erro ao atualizar status');
     }
 }
+
+export async function createTicket(ticketData) {
+    try {
+        const response = await fetch('http://localhost:8080/tickets/addTicket', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(ticketData)
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error('Erro ao criar ticket: ' + errorText);
+        }
+
+        const ticket = await response.json();
+
+        return {
+            id: ticket.id,
+            title: ticket.title,
+            description: ticket.description,
+            category: ticket.category,
+            priority: ticket.priority,
+            status: ticket.status.toLowerCase(),
+        };
+    } catch (error) {
+        console.error(error);
+        alert('Erro ao criar ticket');
+        throw error;
+    }
+}
+
+export async function updateTicket(ticketId, updatedData) {
+    try {
+        const response = await fetch(`http://localhost:8080/tickets/${ticketId}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData)
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error('Erro ao atualizar ticket: ' + errorText);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        alert('Erro ao atualizar ticket');
+        throw error;
+    }
+}
+
 
