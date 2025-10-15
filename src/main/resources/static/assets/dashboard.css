@@ -28,25 +28,26 @@
 .add-card-container {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
   padding: 0px 16px;
-  margin-top: -3rem;
+  margin-top: -2rem;
+ 
 }
 
 .new-card {
   display: flex;
   align-items: center;
-  gap:5px;
+  gap: 6px;
   background: #37b3ec;
-  color: white;
+  color: #fff;
   border: none;
-  height: 31px;
+  height: 36px;
   padding: 8px 16px;
   border-radius: 10px;
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
 }
 
 .new-card:hover {
@@ -73,6 +74,7 @@
   flex: 1;
   min-width: 255px;
 }
+
 /* titulo dos cards */
 .summary-card h3 {
   position: relative;
@@ -82,6 +84,7 @@
   margin-bottom: 8px;
   margin-top: -12px;
 }
+
 /*numero nos cards*/
 .summary-card span {
   font-size: 26px;
@@ -89,6 +92,7 @@
   font-style: Bold;
   color: #2b2b2b;
 }
+
 /* icones dos cards*/
 .card-icon {
   position: absolute;
@@ -119,6 +123,7 @@
   align-items: center;
   box-sizing: border-box;
 }
+
 /* Input de busca */
 .filter-input {
   position: relative;
@@ -166,6 +171,7 @@
 background-color: #f8f8f8;
 border-color: #ccc;
 }
+
 /* Botão principal dos filtros */
 .calendar-btn {
   background-color: #fff;
@@ -257,7 +263,6 @@ tbody tr:hover {
 }
 
 /* Tags */
-
 .tag {
   padding: 4px 10px;
   border-radius: 10px;
@@ -356,6 +361,7 @@ tbody tr:hover {
 @media (max-width: 768px) {
   .filters input, .filters select { flex: 1 1 100%; }
   .summary { flex-direction: column; }
+  .dashboard-header p{ flex-direction: column; }
   .add-card-container { justify-content: center; }
   .table-section { margin: 1rem; }
 }
