@@ -1,5 +1,4 @@
-
-export async function fetchTickets() {
+export async function getTickets() {
     try {
         const response = await fetch('http://localhost:8080/tickets/all');
         if (!response.ok) throw new Error('Erro ao buscar cards');
@@ -11,9 +10,7 @@ export async function fetchTickets() {
             description: ticket.description,
             category: ticket.category,
             priority: ticket.priority,
-            status: ticket.status.toLowerCase(),
-            createdAt: new Date(ticket.createdAt).toLocaleString(),
-            dueDate: ticket.dueDate ? new Date(ticket.dueDate).toLocaleString() : '-'
+            status: ticket.status.toLowerCase()
         }));
     } catch (error) {
         console.error(error);

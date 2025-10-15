@@ -1,5 +1,6 @@
-import { fetchTickets, updateTicketStatus } from './api.js';
-import { renderCards, formatText, getNextStatus } from './ui.js';
+import { getTickets, updateTicketStatus } from './api/ticket.js';
+import { formatText } from './helpers/helpers.js';
+import { renderCards } from './components/cards.js';
 
 const searchInput = document.getElementById('searchInput');
 const priorityFilter = document.getElementById('priorityFilter');
@@ -12,6 +13,16 @@ let filteredCards = [];
 searchInput.addEventListener("input", filterCards);
 priorityFilter.addEventListener('change', filterCards);
 statusFilter.addEventListener('change', filterCards);
+
+
+export function getNextStatus(currentStatus) {
+    const statusFlow = {
+        pendente: 'em_andamento',
+        em_andamento: 'finalizado',
+        finalizado: 'pendente' };
+
+    return statusFlow[currentStatus];
+}
 
 function filterCards() {
     const searchText = formatText(searchInput.value);
@@ -65,7 +76,8 @@ window.handleAction = async function(cardId, action) {
 
 (async function init() {
     try {
-        cards = await fetchTickets();
+        cards = await getTickets();
+        console.log(cards, 33)
         filteredCards = [...cards];
         renderCards(container, filteredCards);
     } catch {
