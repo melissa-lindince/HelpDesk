@@ -1,4 +1,4 @@
-import { getTickets } from "./api/ticket.js"
+import {cardModal} from "./edit-cards.js"
 
 // variaveis
   let cards = [];
@@ -133,8 +133,10 @@ import { getTickets } from "./api/ticket.js"
     freshRows.forEach(row => {
       row.addEventListener('click', () => {
         const id = row.dataset.id;
-        localStorage.setItem('cardsMock', JSON.stringify(cards));
-        window.location.href = `edit-card.html?id=${id}`;
+        const card = cards.find(c => c.id == id);
+        if (card) {
+          cardModal(card, "view"); 
+        }
       });
     });
 
