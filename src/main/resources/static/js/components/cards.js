@@ -8,19 +8,6 @@ export function getStatusText(status) {
     return statusMap[status];
 }
 
-export function getNextStatus(currentStatus) {
-    const statusFlow = {
-        pendente: 'em_andamento',
-        em_andamento: 'finalizado',
-        finalizado: 'pendente' };
-
-    return statusFlow[currentStatus];
-}
-
-export function formatText(str) {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-}
-
 export function createCard(card) {
     const statusClass = card.status.toLowerCase().replace(' ', '-');
     const priorityClass = card.priority.toLowerCase();

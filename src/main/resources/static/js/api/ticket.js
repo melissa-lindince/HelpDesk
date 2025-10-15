@@ -10,9 +10,7 @@ export async function getTickets() {
             description: ticket.description,
             category: ticket.category,
             priority: ticket.priority,
-            status: ticket.status.toLowerCase(),
-            createdAt: new Date(ticket.createdAt).toLocaleString(),
-            dueDate: ticket.dueDate ? new Date(ticket.dueDate).toLocaleString() : '-'
+            status: ticket.status.toLowerCase()
         }));
     } catch (error) {
         console.error(error);
