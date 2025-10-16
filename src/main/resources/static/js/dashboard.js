@@ -1,4 +1,5 @@
-import {cardModal} from "./edit-cards.js"
+import {cardModal} from "./components/edit-card.js"
+import {getTickets} from "./api/ticket.js"
 
 // variaveis
   let cards = [];
