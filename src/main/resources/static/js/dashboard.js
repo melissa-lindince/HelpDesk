@@ -6,11 +6,6 @@ import { setupCalendar } from "./ui/calendar.js";
 import { renderTable } from "./ui/table.js";
 import { filterCards } from "./utils/filter.js";
 
-  const totalCards = document.getElementById('total-cards');
-  const pendentes = document.getElementById('cards-pendentes');
-  const andamento = document.getElementById('cards-andamento');
-  const finalizados = document.getElementById('cards-finalizados');
-
   const tableBody = document.querySelector(".table-section tbody");
   const statusFilter = document.getElementById('statusFilter');
   const searchInput = document.getElementById("filterInput");
@@ -58,7 +53,7 @@ import { filterCards } from "./utils/filter.js";
     if (typeof lucide !== 'undefined' && lucide.createIcons) {
       lucide.createIcons();
     }
-    renderTable(filteredCards, tableBody, () => updateElementSummary(filteredCards, totalCards, pendentes, andamento, finalizados));
+    renderTable(filteredCards, tableBody, () => updateElementSummary(filteredCards));
   });
 
   setupCalendar(btnDataVencimento, calendarModal, closeCalendar, applyFilters);
@@ -73,10 +68,11 @@ import { filterCards } from "./utils/filter.js";
   (async function init() {
       try {
           cards = await getTickets();
+          filteredCards = [...cards];
           console.log(cards)
           filteredCards = [...cards];
-          updateElementSummary(cards, totalCards, pendentes, andamento, finalizados);
-          renderTable(cards, tableBody, () => updateElementSummary(cards, totalCards, pendentes, andamento, finalizados));
+          updateElementSummary(cards);
+          renderTable(filteredCards, tableBody, applyFilters);
       } catch(error) {
           console.log(error)
       }
