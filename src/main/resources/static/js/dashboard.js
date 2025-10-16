@@ -1,6 +1,7 @@
-import { getTickets } from "./api/ticket.js"
+import { getTickets, updateTicketStatus } from "./api/ticket.js"
 import { cardModal } from "./components/edit-card.js";
 import { cardModalTest } from "./components/test.js";
+import { formatText, parseDate, formatStatusLabel } from "./utils/format.js";
 
 // variaveis
   let cards = [];
@@ -35,11 +36,6 @@ import { cardModalTest } from "./components/test.js";
   dueDate: "15/10/2025",
   author: "Fernanda Tisco"
 };
-  function formatText(str) {
-    if (!str) return "";
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  }
-
 
   const btnNewCard = document.getElementById("newCard")
   btnNewCard.addEventListener('click', () => {
@@ -75,21 +71,6 @@ import { cardModalTest } from "./components/test.js";
       case 'baixa': return 'baixa';
       default: return '';
     }
-  }
-
-  function formatStatusLabel(status) {
-    switch (status.toLowerCase()) {
-      case 'em_andamento': return 'Em andamento';
-      case 'pendente': return 'Pendente';
-      case 'finalizado': return 'Finalizado';
-      default: return status;
-    }
-  }
-
-  function parseDate(dateString) {
-    if (!dateString) return null;
-    const parts = dateString.split('/');
-    return new Date(parts[2], parts[1] - 1, parts[0]);
   }
 
   //filtra o card por data ou status
