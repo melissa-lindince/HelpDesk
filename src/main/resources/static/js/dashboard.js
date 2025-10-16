@@ -1,5 +1,5 @@
 import {cardModal} from "./components/edit-card.js"
-import {getTickets} from "./api/ticket.js"
+import {getTickets, updateTicketStatus} from "./api/ticket.js"
 
 // variaveis
   let cards = [];
@@ -58,6 +58,15 @@ import {getTickets} from "./api/ticket.js"
     }
   }
 
+  function formatStatusLabel(status) {
+    switch (status.toLowerCase()) {
+      case 'em_andamento': return 'Em andamento';
+      case 'pendente': return 'Pendente';
+      case 'finalizado': return 'Finalizado';
+      default: return status;
+    }
+  }
+
   function parseDate(dateString) {
     if (!dateString) return null;
     const parts = dateString.split('/');
@@ -99,7 +108,7 @@ import {getTickets} from "./api/ticket.js"
         <td>
           <div class="status-wrapper">
             <span class="tag ${getStatusTag(card.status)} status-tag" data-status="${card.status}">
-              ${card.status} <span class="status-arrow">▾</span>
+              ${formatStatusLabel(card.status)} <span class="status-arrow">▾</span>
             </span>
             <select class="status-select" style="display:none;">
               <option value="em_andamento" ${card.status === 'em_andamento' ? 'selected' : ''}>Em andamento</option>
@@ -156,13 +165,17 @@ import {getTickets} from "./api/ticket.js"
         // Cria o select de status
         const select = document.createElement('select');
         select.classList.add('status-select');
-        const options = ['Em andamento', 'Pendente', 'Finalizado'];
+        const options = [
+          { value: 'em_andamento', label: 'Em andamento' },
+          { value: 'pendente', label: 'Pendente' },
+          { value: 'finalizado', label: 'Finalizado' }
+        ];
 
         options.forEach(opt => {
           const option = document.createElement('option');
-          option.value = opt;
-          option.textContent = opt;
-          if (opt === currentStatus) option.selected = true;
+          option.value = opt.value;
+          option.textContent = opt.label;
+          if (opt.value === currentStatus) option.selected = true;
           select.appendChild(option);
         });
 
@@ -174,15 +187,22 @@ import {getTickets} from "./api/ticket.js"
         select.addEventListener('click', (ev) => ev.stopPropagation());
 
         // Ao mudar o valor, atualiza no mock (ou chame a API aqui)
-        select.addEventListener('change', () => {
+        select.addEventListener('change', async () => {
           const newStatus = select.value;
           const cardIndex = cards.findIndex(c => c.id === cardId);
           if (cardIndex !== -1) {
-            // atualiza no array local
-            cards[cardIndex].status = newStatus;
+                const statusForBackend = newStatus.toLowerCase().replace(/ /g, '_');
 
-            // por enquanto, só re-renderiza o front
-            renderTable();
+                // 2. Atualiza o array local
+                cards[cardIndex].status = statusForBackend;
+
+                // 3. Chama a API para atualizar o status no banco de dados
+                // Esta linha agora chama a função que você forneceu
+                await updateTicketStatus(cardId, statusForBackend);
+
+                // 4. Re-renderiza o front e atualiza o resumo
+                updateResumo();
+                renderTable();
           }
         });
 
@@ -233,36 +253,6 @@ import {getTickets} from "./api/ticket.js"
       lucide.createIcons();
     }
     renderTable();
-  });
-
-  //eventos de status na tabela :
-  document.addEventListener('click', function(e) {
-    // Se clicar em uma tag de status
-    if (e.target.closest('.status-tag')) {
-      const wrapper = e.target.closest('.status-wrapper');
-      const select = wrapper.querySelector('.status-select');
-
-      // Alterna a exibição do select
-      select.style.display = select.style.display === 'none' ? 'inline-block' : 'none';
-      wrapper.querySelector('.status-tag').classList.toggle('open');
-    }
-  });
-
-  // Ao alterar o select, atualiza o status
-  document.addEventListener('change', function(e) {
-    if (e.target.classList.contains('status-select')) {
-      const select = e.target;
-      const wrapper = select.closest('.status-wrapper');
-      const tag = wrapper.querySelector('.status-tag');
-
-      const value = select.value;
-      tag.textContent = select.options[select.selectedIndex].text + ' ▾';
-
-      // Atualiza cor dinamicamente
-      tag.className = 'tag ' + value + ' status-tag';
-      select.style.display = 'none';
-      tag.classList.remove('open');
-    }
   });
 
   //update resumos
