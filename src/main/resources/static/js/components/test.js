@@ -1,5 +1,9 @@
-import { createTicket } from "../api/ticket.js";
+import { createTicket, getTickets } from "../api/ticket.js";
 import { getUserName } from "../api/user.js";
+import { renderTable } from "../ui/table.js";
+import { updateElementSummary } from "../ui/update-summary.js";
+
+const tableBody = document.querySelector("#tbody");
 
 const userName = async () => {
     try {
@@ -85,46 +89,40 @@ const userName = async () => {
 
     
     document.body.appendChild(modalOverlay);
-        userName()
+    userName()
+
     const form = modalOverlay.querySelector("#cardForm");
         const editBtn = modalOverlay.querySelector("#editBtn");
         const cancelBtn = modalOverlay.querySelector("#cancelBtn");
-    
-        // if (card) {
-        //     form.querySelector("#card-title").value = card.title;
-        //     form.querySelector("#card-description").value = card.description;
-        //     form.querySelector("#card-category").value = card.category;
-        //     form.querySelector("#card-priority").value = card.priority;
-        //     form.querySelector("#card-responsible").value = card.responsibleId;
-        // }
-    
-    
+
         editBtn.addEventListener("click", async () => {
+    const createdData = {
+        title: form.querySelector("#card-title").value,
+        description: form.querySelector("#card-description").value,
+        category: form.querySelector("#card-category").value.toUpperCase(),
+        priority: form.querySelector("#card-priority").value.toUpperCase(),
+        responsableUserId: 1,
+        authorId: 1,
+    };
 
+    try {
+        const updatedTicket = await createTicket(createdData);
+        const getTicket = await getTickets();
+
+        console.log("Ticket criado:", updatedTicket);
+
+        // Atualiza a variável global do dashboard
+        window.cards = getTicket;  // se cards não for global, exporte ele ou use um state manager
+        window.filteredCards = [...getTicket];
+
+        // Atualiza tabela e resumo
+        updateElementSummary(getTicket);
+        renderTable(getTicket, tableBody, () => {}); // passa a função de callback se quiser
+        modalOverlay.remove();
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao criar o ticket");
+    }
+});
     
-            const createdData = {
-                title: form.querySelector("#card-title").value,
-                description: form.querySelector("#card-description").value,
-                category: form.querySelector("#card-category").value.toUpperCase(),
-                priority: form.querySelector("#card-priority").value.toUpperCase(),
-                responsableUserId: 1,
-                authorId: 1,
-
-
-            };
-    
-            try {
-                const updatedTicket = await createTicket(createdData);
-                console.log("Ticket criado:", updatedTicket);
-    
-    
-                modalOverlay.remove();
-            } catch (err) {
-                console.error(err);
-                alert("Erro ao criar o ticket");
-            }
-            
-})
-
-
 }

@@ -29,7 +29,7 @@ import { updateElementSummary } from "./update-summary.js";
       </tr>`;
   }
 
-export function renderTable(cards, tableBody, onStatusChange, updateElementSummary) {
+export function renderTable(cards, tableBody, onStatusChange) {
   if (!cards || cards.length === 0) {
     tableBody.innerHTML = '<tr><td colspan="7">Nenhum card encontrado com os filtros aplicados.</td></tr>';
     return;
@@ -98,6 +98,7 @@ export function renderTable(cards, tableBody, onStatusChange, updateElementSumma
           }
 
           renderTable(updatedCard, tableBody, onStatusChange);
+          updateElementSummary(updatedCard)
         } catch (err) {
           console.error('Erro ao atualizar status:', err);
         }
@@ -105,7 +106,7 @@ export function renderTable(cards, tableBody, onStatusChange, updateElementSumma
       });
 
       select.addEventListener('blur', () => {
-        renderTable(cards, tableBody, onStatusChange, updateElementSummary);
+        renderTable(cards, tableBody, onStatusChange);
       });
     });
   });
