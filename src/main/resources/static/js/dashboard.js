@@ -2,7 +2,8 @@ import { getTickets, updateTicketStatus } from "./api/ticket.js"
 import { cardModal } from "./components/edit-card.js";
 import { cardModalTest } from "./components/test.js";
 import { formatText, parseDate, formatStatusLabel } from "./utils/format.js";
-
+import { getStatusTag, getCategoryTag, getPriorityTag } from "./utils/tags.js";
+import { updateElementSummary } from "./ui/update-summary.js";
 // variaveis
   let cards = [];
   let filteredCards = [...cards];
@@ -42,8 +43,7 @@ import { formatText, parseDate, formatStatusLabel } from "./utils/format.js";
      cardModalTest(card, "create")
 
   })
-  
-  //filtra o card por data ou status
+
   function filterCards() {
     const searchText = formatText(searchInput.value) || "";
     const status = statusFilter.value;
@@ -171,7 +171,7 @@ import { formatText, parseDate, formatStatusLabel } from "./utils/format.js";
                 await updateTicketStatus(cardId, statusForBackend);
 
                 // 4. Re-renderiza o front e atualiza o resumo
-                updateResumo();
+                updateElementSummary(cards, totalCards, pendentes, andamento, finalizados);
                 renderTable();
           }
         });
@@ -229,20 +229,12 @@ import { formatText, parseDate, formatStatusLabel } from "./utils/format.js";
     renderTable();
   });
 
-  //update resumos
-  function updateResumo(){
-    totalCards.textContent = cards.length;
-    pendentes.textContent = cards.filter(card => card.status == 'pendente').length;
-    andamento.textContent = cards.filter(card => card.status == 'em_andamento').length;
-    finalizados.textContent = cards.filter(card => card.status == 'finalizado').length;
-  }
-
   (async function init() {
       try {
           cards = await getTickets();
           console.log(cards)
           filteredCards = [...cards];
-          updateResumo();
+          updateElementSummary(cards, totalCards, pendentes, andamento, finalizados);
           renderTable(cards)
       } catch(error) {
           console.log(error)
