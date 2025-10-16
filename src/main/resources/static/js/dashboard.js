@@ -42,37 +42,7 @@ import { formatText, parseDate, formatStatusLabel } from "./utils/format.js";
      cardModalTest(card, "create")
 
   })
-
-
-  //pega as informações dos cards e adiciona nas tags, verificar se tá escrito igual ao que vem do BD::
-  function getStatusTag(status) {
-    switch(status.toLowerCase()) {
-      case 'em_andamento': return 'em_andamento';
-      case 'finalizado': return 'finalizado';
-      case 'pendente': return 'pendente';
-      default: return '';
-    }
-  }
-
-  function getCategoryTag(category) {
-    switch(category.toLowerCase()) {
-      case 'bug': return 'bug';
-      case 'feature': return 'melhoria';
-      case 'suporte': return 'suporte';
-      case 'duvida': return 'duvida';
-      default: return '';
-    }
-  }
-
-  function getPriorityTag(priority) {
-    switch(priority.toLowerCase()) {
-      case 'alta': return 'alta';
-      case 'media': return 'média';
-      case 'baixa': return 'baixa';
-      default: return '';
-    }
-  }
-
+  
   //filtra o card por data ou status
   function filterCards() {
     const searchText = formatText(searchInput.value) || "";
