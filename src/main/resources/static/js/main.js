@@ -11,9 +11,9 @@ const container = document.getElementById('cardsGrid');
 let cards = [];
 let filteredCards = [];
 
-searchInput.addEventListener("input", filterCards);
-priorityFilter.addEventListener('change', filterCards);
-statusFilter.addEventListener('change', filterCards);
+// searchInput.addEventListener("input", filterCards);
+// priorityFilter.addEventListener('change', filterCards);
+// statusFilter.addEventListener('change', filterCards);
 
 
 export function getNextStatus(currentStatus) {
@@ -26,6 +26,8 @@ export function getNextStatus(currentStatus) {
 }
 
 function filterCards() {
+    
+
     const searchText = formatText(searchInput.value);
     const priority = priorityFilter.value;
     const status = statusFilter.value;
@@ -96,6 +98,6 @@ export async function handleAction(cardId, action, cards) {
         filteredCards = [...cards];
         renderCards(container, filteredCards);
     } catch {
-        container.innerHTML = `<p>Erro ao carregar tickets.</p>`;
+        // container.innerHTML = `<p>Erro ao carregar tickets.</p>`;
     }
 })();

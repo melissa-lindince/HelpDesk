@@ -10,27 +10,6 @@ export function getStatusText(status) {
     return statusMap[status];
 }
 
-async function handleAction(cardId, action, cards) {
-    const card = cards.find(c => c.id === cardId);
-    if (!card) return;
-
-    switch (action) {
-        case "Finalizar":
-        case "Iniciar":
-        case "Reabrir":
-            await updateCardStatus(card, action, filterCards);
-            break;
-        case "Ver Detalhes":
-            openCardModal(card, "view");
-            break;
-        case "Editar":
-            openCardModal(card, "edit");
-            break;
-        case "Criar":
-            openCardModal(null, "create");
-            break;
-    }
-}
 
 export function createCard(card, cards) {
     const statusClass = card.status.toLowerCase().replace(' ', '-');

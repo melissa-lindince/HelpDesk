@@ -97,7 +97,6 @@ export function cardModal(card, mode) {
     const editBtn = modalOverlay.querySelector("#editBtn");
     const cancelBtn = modalOverlay.querySelector("#cancelBtn");
 
-    // preencher os campos se houver card
     if (card) {
         form.querySelector("#card-title").value = card.title || "";
         form.querySelector("#card-description").value = card.description || "";
