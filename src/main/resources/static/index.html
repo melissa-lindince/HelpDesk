@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./assets/global.css"/>
     <link rel="stylesheet" href="./assets/header-layout.css"/>
     <link rel="stylesheet" href="./assets/dashboard.css"/>
+    <link rel="stylesheet" href="./assets/edit-card.css"/>
     <!-- alterar src se for necessário -->
     <script type="module" src="./js/dashboard.js" defer></script>
 
@@ -66,7 +67,7 @@
 
       <!-- Botão Novo Card -->
       <div class="add-card-container">
-        <button class="new-card">
+        <button class="new-card" id="newCard">
           <i data-lucide="plus"></i> Novo card
         </button>
       </div>
@@ -99,7 +100,7 @@
       <section class="filters">
         <div class="filter-input">
           <i class="filter-icon" data-lucide="search"></i>
-          <input type="text" id="filterInput" placeholder="Buscar card">
+          <input type="text" id="filterInput" id="searchInput" placeholder="Buscar card">
         </div>
         <select id="statusFilter" class="filter-select">
           <option value="">Todos os Status</option>
@@ -154,6 +155,9 @@
       </section>
     </main>
 
+    <script type="module" src="js/components/test.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+    <script type="module" src="js/api/ticket.js"></script>
     <script>
       lucide.createIcons();
     </script>

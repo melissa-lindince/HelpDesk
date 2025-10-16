@@ -108,7 +108,7 @@
     border-radius: 50%;
 }
 
-.status-icon.andamento {
+.status-icon.em_andamento {
     background-color: #4c6fff;
 }
 
@@ -116,7 +116,7 @@
     background-color: #ffa500;
 }
 
-.status-icon.concluido {
+.status-icon.finalizado {
     background-color: #00c853;
 }
 

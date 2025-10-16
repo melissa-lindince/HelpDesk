@@ -10,6 +10,7 @@ export function getStatusText(status) {
     return statusMap[status];
 }
 
+
 export function createCard(card, cards) {
     const statusClass = card.status.toLowerCase().replace(' ', '-');
     const priorityClass = card.priority.toLowerCase();

@@ -1,4 +1,6 @@
 import { getTickets } from "./api/ticket.js"
+import { cardModal } from "./components/edit-card.js";
+import { cardModalTest } from "./components/test.js";
 
 // variaveis
   let cards = [];
@@ -17,10 +19,28 @@ import { getTickets } from "./api/ticket.js"
   const calendarModal = document.getElementById("calendarModal");
   const closeCalendar = document.getElementById("closeCalendar");
 
+  const card = {
+  title: "Erro ao logar no sistema",
+  description: "Usuário não consegue fazer login com credenciais válidas.",
+  category: "Bug",
+  priority: "Alta",
+  responsible: "Larissa Faria",
+  created: "11/10/2025",
+  dueDate: "15/10/2025",
+  author: "Fernanda Tisco"
+};
   function formatText(str) {
     if (!str) return "";
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   }
+
+
+  const btnNewCard = document.getElementById("newCard")
+  btnNewCard.addEventListener('click', () => {
+     cardModalTest(card, "create")
+
+  })
+
 
   //pega as informações dos cards e adiciona nas tags, verificar se tá escrito igual ao que vem do BD::
   function getStatusTag(status) {
@@ -59,7 +79,7 @@ import { getTickets } from "./api/ticket.js"
 
   //filtra o card por data ou status
   function filterCards() {
-    const searchText = formatText(searchInput.value);
+    const searchText = formatText(searchInput.value) || "";
     const status = statusFilter.value;
     const hasDateFilter = selectedStartDate && selectedEndDate;
 
@@ -195,7 +215,11 @@ import { getTickets } from "./api/ticket.js"
     calendarModal.style.display = calendarModal.style.display === 'block' ? 'none' : 'block';
   });
 
+
   closeCalendar.addEventListener('click', () => {
+
+    
+    console.log(btnNewCard,222222)
     const startValue = document.getElementById('startDate').value;
     const endValue = document.getElementById('endDate').value;
 
