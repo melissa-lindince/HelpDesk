@@ -52,8 +52,8 @@ export async function cardModal(card = null, mode = "view") {
           </div>
         </div>
         <div class="form-group">
-          <label for="card-responsible">Responsável *</label>
-          <select id="card-responsible" name="responsible disabled"></select>
+          <label for="card-responsable">Responsável *</label>
+          <select id="card-responsable" name="responsable" required></select>
         </div>
         <div class="form-row">
           <div class="form-group">
@@ -82,77 +82,94 @@ export async function cardModal(card = null, mode = "view") {
   const form = modalOverlay.querySelector("#cardForm");
   const actionBtn = modalOverlay.querySelector("#actionBtn");
   const cancelBtn = modalOverlay.querySelector("#cancelBtn");
-  const responsibleSelect = modalOverlay.querySelector("#card-responsible");
+  const responsableSelect = modalOverlay.querySelector("#card-responsable");
 
+  let users = [];
   try {
-    const users = await getUserName();
-    responsibleSelect.innerHTML = '<option value="">Selecione</option>';
+    users = await getUserName();
+    responsableSelect.innerHTML = '<option value="">Selecione</option>';
     users.forEach(user => {
       const opt = document.createElement("option");
       opt.value = user.id;
       opt.textContent = user.name;
-      responsibleSelect.appendChild(opt);
+      responsableSelect.appendChild(opt);
     });
   } catch (err) {
     console.error("Erro ao carregar usuários:", err);
+    responsableSelect.innerHTML = '<option value="">Erro ao carregar usuários</option>';
   }
 
   if (card) {
+    const responsableName = card.responsable || "";
+    if (responsableName) {
+      const matchedUser = users.find(u => u.name === responsableName);
+      if (matchedUser) {
+        responsableSelect.value = matchedUser.id;
+      } else {
+        const tempOption = document.createElement("option");
+        tempOption.value = "temp";
+        tempOption.textContent = responsableName;
+        tempOption.selected = true;
+        responsableSelect.appendChild(tempOption);
+      }
+    }
+
+    const categorySelect = form.querySelector("#card-category");
+    const prioritySelect = form.querySelector("#card-priority");
+    categorySelect.value = card.category?.toUpperCase() || "";
+    prioritySelect.value = card.priority?.toUpperCase() || "";
+
     form.querySelector("#card-title").value = card.title || "";
     form.querySelector("#card-description").value = card.description || "";
-    form.querySelector("#card-category").value = card.category || "";
-    form.querySelector("#card-priority").value = card.priority || "";
-    form.querySelector("#card-responsible").value = card.responsibleId || "";
     form.querySelector("#card-created").value = card.createdAt || "";
     form.querySelector("#card-dueDate").value = card.dueDate || "";
     form.querySelector("#card-author").value = card.author || "";
   }
 
   let isEditing = mode === "edit" || mode === "create";
+
   form.querySelectorAll("input, textarea, select").forEach(el => {
     if (mode === "view") el.disabled = true;
     if (mode === "create") el.disabled = false;
   });
 
-actionBtn.addEventListener("click", async () => {
-  if (!isEditing && mode === "view") {
-    isEditing = true;
-    mode = "edit";
-    form.querySelectorAll("input, textarea, select").forEach(el => el.disabled = false);
-    actionBtn.textContent = getButtonText("edit");
-    cancelBtn.textContent = "Cancelar";
-    return;
-  }
-
-  const payload = {
-    title: form.querySelector("#card-title").value,
-    description: form.querySelector("#card-description").value,
-    category: form.querySelector("#card-category").value.toUpperCase(),
-    priority: form.querySelector("#card-priority").value.toUpperCase(),
-    responsableId: form.querySelector("#card-responsible").value,
-    dueDate: form.querySelector("#card-dueDate").value
-  };
-
-  try {
-    let result;
-    if (mode === "create") {
-      result = await createTicket(payload);
-      console.log("Ticket criado:", result);
-    } else if (card && mode === "edit") {
-      console.log("Atualizando ticket:", card.id, payload);
-      result = await updateTicket(card.id, payload);
-      
-      const tickets = await getTickets();
-      renderCards(container, tickets);
-      console.log("Ticket atualizado:", result);
+  actionBtn.addEventListener("click", async () => {
+    if (!isEditing && mode === "view") {
+      isEditing = true;
+      mode = "edit";
+      form.querySelectorAll("input, textarea, select").forEach(el => el.disabled = false);
+      actionBtn.textContent = getButtonText("edit");
+      cancelBtn.textContent = "Cancelar";
+      return;
     }
-    
-    modalOverlay.remove();
-  } catch (err) {
-    console.error("Erro ao salvar ticket:", err);
-    alert("Erro ao salvar ticket");
-  }
-});
-    
+
+    const payload = {
+      title: form.querySelector("#card-title").value,
+      description: form.querySelector("#card-description").value,
+      category: form.querySelector("#card-category").value.toUpperCase(),
+      priority: form.querySelector("#card-priority").value.toUpperCase(),
+      responsableId: form.querySelector("#card-responsable").value,
+      dueDate: form.querySelector("#card-dueDate").value
+    };
+
+    try {
+      let result;
+      if (mode === "create") {
+        result = await createTicket(payload);
+        console.log("Ticket criado:", result);
+      } else if (card && mode === "edit") {
+        console.log("Atualizando ticket:", card.id, payload);
+        result = await updateTicket(card.id, payload);
+        const tickets = await getTickets();
+        renderCards(container, tickets);
+        console.log("Ticket atualizado:", result);
+      }
+      modalOverlay.remove();
+    } catch (err) {
+      console.error("Erro ao salvar ticket:", err);
+      alert("Erro ao salvar ticket");
+    }
+  });
+
   cancelBtn.addEventListener("click", () => modalOverlay.remove());
 }
