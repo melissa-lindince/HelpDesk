@@ -13,8 +13,15 @@ export async function getTickets() {
             status: ticket.status.toLowerCase(),
             author: ticket.authorName,
             responsable: ticket.responsableName,
-            dueDate: ticket.dueDate,
-            createdOn: ticket.createdOn
+            dueDate: ticket.dueDate
+              ? new Date(ticket.dueDate).toLocaleString('pt-BR', {
+                  dateStyle: 'short'
+                })
+              : '-',
+            createdOn: new Date(ticket.createdOn).toLocaleString('pt-BR', {
+              dateStyle: 'short'
+            })
+
         }));
     } catch (error) {
         console.error(error);

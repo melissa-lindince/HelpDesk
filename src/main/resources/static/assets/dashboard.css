@@ -258,9 +258,15 @@ th, td {
   white-space: nowrap;
 }
 
-tbody tr:hover {
+tbody tr:hover td {
   background: #f9fafb;
+  cursor: pointer;
 }
+
+status-wrapper:hover{
+  cursor: pointer;
+}
+
 
 /* Tags */
 .tag {
@@ -290,6 +296,7 @@ tbody tr:hover {
 
 .status-tag:hover {
   transform: scale(1.03);
+  cursor: pointer;
 }
 
 .status-arrow {
@@ -309,15 +316,15 @@ tbody tr:hover {
 .tag.pendente { background-color: #FEF9C2; color: #996A3B; }
 
 /* ===== CATEGORIA ===== */
-.tag.bug { background-color:#FFDFDF ; color:#D23832; }
-.tag.melhoria { background-color: #CEFAFE ; color:#49AED6 ; }
-.tag.suporte { background-color: #DCFCE7; color: #0BA946; }
-.tag.duvida { background-color:#F6EDFF ; color: #A236E7; }
+.tag.bug { background-color:#FFDFDF ; color:#D23832; text-transform: capitalize}
+.tag.melhoria { background-color: #CEFAFE ; color:#49AED6 ; text-transform: capitalize}
+.tag.suporte { background-color: #DCFCE7; color: #0BA946; text-transform: capitalize}
+.tag.duvida { background-color:#F6EDFF ; color: #A236E7; text-transform: capitalize}
 
 /* ===== PRIORIDADE ===== */
-.tag.alta { background-color:#FFDFDF ; color:#D23832; }
-.tag.média { background-color: #FEF9C2; color: #996A3B; }
-.tag.baixa { background-color: #DCFCE7; color: #0BA946; }
+.tag.alta { background-color:#FFDFDF ; color:#D23832; text-transform: capitalize}
+.tag.média { background-color: #FEF9C2; color: #996A3B; text-transform: capitalize}
+.tag.baixa { background-color: #DCFCE7; color: #0BA946; text-transform: capitalize}
 
 
 /* Select do status (quando abre pra editar) */
@@ -327,6 +334,7 @@ tbody tr:hover {
   border-radius: 8px;
   border: 1px solid #ccc;
   outline: none;
+  cursor:pointer;
 }
 
 .status-select:focus {

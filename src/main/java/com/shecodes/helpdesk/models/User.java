@@ -1,6 +1,5 @@
 package com.shecodes.helpdesk.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,13 +21,13 @@ public class User {
     private String name;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDate createdAt;
+    private LocalDate createdOn;
 
     @OneToMany(mappedBy = "author")
-    private List<Ticket> ticketCriadas;
+    private List<Ticket> createdTickets;
 
     @OneToMany(mappedBy = "responsableUser")
-    private List<Ticket> ticketDesignadas;
+    private List<Ticket> assignedTickets;
 
     public User() {}
 
@@ -41,9 +40,9 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", createdAt=" + createdAt +
-                ", tarefasCriadas=" + ticketCriadas +
-                ", tarefasDesignadas=" + ticketDesignadas +
+                ", createdAt=" + createdOn +
+                ", tarefasCriadas=" + createdTickets +
+                ", tarefasDesignadas=" + assignedTickets +
                 '}';
     }
 }

@@ -89,6 +89,22 @@ body, .modal, .modal * {
     background: #fff;
     outline: none;
   }
+
+  input:not(:disabled), textarea:not(:disabled), select:not(:disabled){
+    background-color: white;
+    border-color: #b3b3b3;
+  }
+
+  input:not(:disabled):hover, textarea:not(:disabled):hover, select:not(:disabled):hover{
+      background-color: #f0faff;
+      border-color: #69c0ff;
+      cursor: pointer;
+    }
+
+  input:not(:disabled):focus, textarea:not(:disabled):focus, select:not(:disabled):focus{
+    border-color: #1890ff;
+    background-color: #fff;
+  }
   
   /* Botões */
   .form-actions {
