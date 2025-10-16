@@ -4,6 +4,7 @@ import { cardModalTest } from "./components/test.js";
 import { formatText, parseDate, formatStatusLabel } from "./utils/format.js";
 import { getStatusTag, getCategoryTag, getPriorityTag } from "./utils/tags.js";
 import { updateElementSummary } from "./ui/update-summary.js";
+import { setupCalendar } from "./ui/calendar.js";
 // variaveis
   let cards = [];
   let filteredCards = [...cards];
@@ -188,33 +189,6 @@ import { updateElementSummary } from "./ui/update-summary.js";
   searchInput.addEventListener("input", filterCards);
   statusFilter.addEventListener("change", filterCards);
 
-  // Lógicas do modal de calendário
-  btnDataVencimento.addEventListener('click', (e) => {
-    e.stopPropagation();
-    calendarModal.style.display = calendarModal.style.display === 'block' ? 'none' : 'block';
-  });
-
-
-  closeCalendar.addEventListener('click', () => {
-
-    
-    console.log(btnNewCard,222222)
-    const startValue = document.getElementById('startDate').value;
-    const endValue = document.getElementById('endDate').value;
-
-    selectedStartDate = startValue ? new Date(startValue) : null;
-    selectedEndDate = endValue ? new Date(endValue) : null;
-
-    if (selectedStartDate && selectedEndDate) {
-      btnDataVencimento.textContent = `De ${startValue.split('-').reverse().join('/')} até ${endValue.split('-').reverse().join('/')}`;
-    } else {
-      btnDataVencimento.textContent = "Data de vencimento";
-    }
-
-    calendarModal.style.display = 'none';
-    filterCards();
-  });
-
   document.addEventListener('click', (e) => {
     if (calendarModal.style.display === 'block' && !calendarModal.contains(e.target) && e.target !== btnDataVencimento) {
       calendarModal.style.display = 'none';
@@ -228,6 +202,8 @@ import { updateElementSummary } from "./ui/update-summary.js";
     }
     renderTable();
   });
+
+  setupCalendar(btnDataVencimento, calendarModal, closeCalendar, filterCards);
 
   (async function init() {
       try {
