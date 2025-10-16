@@ -1,9 +1,11 @@
 import { getStatusTag, getCategoryTag, getPriorityTag } from "../utils/tags.js";
 import { formatStatusLabel } from "../utils/format.js";
-import { updateTicketStatus } from "../api/ticket.js";
+import { getTickets, updateTicketStatus } from "../api/ticket.js";
 import { cardModal } from "../components/edit-card.js";
+import { updateElementSummary } from "./update-summary.js";
 
   function createTableRow(card) {
+
     return `
       <tr data-id="${card.id}">
         <td><strong>${card.title}</strong><p>${card.description.substring(0, 50)}...</p></td>
@@ -27,7 +29,7 @@ import { cardModal } from "../components/edit-card.js";
       </tr>`;
   }
 
-export function renderTable(cards, tableBody, onStatusChange, updateResumo) {
+export function renderTable(cards, tableBody, onStatusChange, updateElementSummary) {
   if (!cards || cards.length === 0) {
     tableBody.innerHTML = '<tr><td colspan="7">Nenhum card encontrado com os filtros aplicados.</td></tr>';
     return;
@@ -86,27 +88,24 @@ export function renderTable(cards, tableBody, onStatusChange, updateResumo) {
 
       select.addEventListener('change', async () => {
         const newStatus = select.value;
-        const statusForBackend = newStatus.toLowerCase().replace(/ /g,'_');
 
         try {
-          await updateTicketStatus(cardId, statusForBackend);
+          await updateTicketStatus(cardId, newStatus);
+          const updatedCard = await getTickets();
 
           if (typeof onStatusChange === 'function') {
-            await onStatusChange(cardId, statusForBackend);
+            await onStatusChange(cardId, newStatus);
           }
 
-          if (typeof updateResumo === 'function') updateResumo();
-
-          renderTable(cards, tableBody, onStatusChange, updateResumo);
+          renderTable(updatedCard, tableBody, onStatusChange);
         } catch (err) {
           console.error('Erro ao atualizar status:', err);
-          renderTable(cards, tableBody, onStatusChange, updateResumo);
         }
 
       });
 
       select.addEventListener('blur', () => {
-        renderTable(cards, tableBody, onStatusChange, updateResumo);
+        renderTable(cards, tableBody, onStatusChange, updateElementSummary);
       });
     });
   });

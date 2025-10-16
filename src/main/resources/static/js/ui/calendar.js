@@ -19,6 +19,6 @@ export function setupCalendar(btnDataVencimento, calendarModal, closeCalendar, f
       : "Data de vencimento";
 
     calendarModal.style.display = 'none';
-    filterCards();
+    filterCards(selectedStartDate, selectedEndDate);
   });
 }
