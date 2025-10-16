@@ -1,7 +1,7 @@
 import { getTickets, updateTicketStatus } from './api/ticket.js';
 import { formatText } from './helpers/helpers.js';
 import { renderCards } from './components/cards.js';
-import { cardModal } from './components/edit-card.js';
+import { cardModal } from './components/cardModal.js';
 
 const searchInput = document.getElementById('searchInput');
 const priorityFilter = document.getElementById('priorityFilter');
@@ -10,11 +10,6 @@ const container = document.getElementById('cardsGrid');
 
 let cards = [];
 let filteredCards = [];
-
-// searchInput.addEventListener("input", filterCards);
-// priorityFilter.addEventListener('change', filterCards);
-// statusFilter.addEventListener('change', filterCards);
-
 
 export function getNextStatus(currentStatus) {
     const statusFlow = {
@@ -26,8 +21,6 @@ export function getNextStatus(currentStatus) {
 }
 
 function filterCards() {
-    
-
     const searchText = formatText(searchInput.value);
     const priority = priorityFilter.value;
     const status = statusFilter.value;

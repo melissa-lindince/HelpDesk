@@ -1,10 +1,10 @@
 import { getTickets } from "./api/ticket.js"
-import { cardModalTest } from "./components/test.js";
 import { formatText } from "./utils/format.js";
 import { updateElementSummary } from "./ui/update-summary.js";
 import { setupCalendar } from "./ui/calendar.js";
 import { renderTable } from "./ui/table.js";
 import { filterCards } from "./utils/filter.js";
+import { cardModal } from "./components/cardModal.js";
 
   const tableBody = document.querySelector(".table-section tbody");
   const statusFilter = document.getElementById('statusFilter');
@@ -16,17 +16,6 @@ import { filterCards } from "./utils/filter.js";
 
   let cards = [];
   let filteredCards = [...cards];
-
-  const card = {
-    title: "Erro ao logar no sistema",
-    description: "Usuário não consegue fazer login com credenciais válidas.",
-    category: "Bug",
-    priority: "Alta",
-    responsible: "Larissa Faria",
-    created: "11/10/2025",
-    dueDate: "15/10/2025",
-    author: "Fernanda Tisco"
-};
 
   function applyFilters(startDate, endDate) {
   const filters = {
@@ -42,8 +31,7 @@ import { filterCards } from "./utils/filter.js";
 
   const btnNewCard = document.getElementById("newCard")
   btnNewCard.addEventListener('click', () => {
-     cardModalTest(card, "create")
-
+    cardModal(null, "create")
   })
 
   searchInput.addEventListener("input", () => applyFilters());

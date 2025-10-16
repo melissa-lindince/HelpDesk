@@ -93,4 +93,25 @@ export async function updateTicket(ticketId, updatedData) {
     }
 }
 
+export async function deleteTicket(ticketId) {
+    const url = `http://localhost:8080/tickets/${ticketId}`;
+    console.log(99, ticketId)
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json'},
+        });
 
+        if (response.ok) {
+            console.log(`Ticket ID ${ticketId} excluído com sucesso.`);
+            
+        } else if (response.status === 404) {
+            console.error(`Erro 404: Ticket ID ${ticketId} não encontrado.`);
+        } else {
+            console.error(`Falha ao excluir o ticket. Status: ${response.status}`);
+
+        }
+    } catch (error) {
+        console.error('Erro de rede ou na requisição:', error);
+    }
+}

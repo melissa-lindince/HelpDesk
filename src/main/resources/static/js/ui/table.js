@@ -1,7 +1,7 @@
 import { getStatusTag, getCategoryTag, getPriorityTag } from "../utils/tags.js";
 import { formatStatusLabel } from "../utils/format.js";
 import { getTickets, updateTicketStatus } from "../api/ticket.js";
-import { cardModal } from "../components/edit-card.js";
+import { cardModal } from "../components/cardModal.js";
 import { updateElementSummary } from "./update-summary.js";
 
   function createTableRow(card) {
@@ -49,7 +49,7 @@ export function renderTable(cards, tableBody, onStatusChange) {
       const id = row.dataset.id;
       const card = cards.find(c => c.id == id);
       if (card) {
-        cardModal(card, "view");
+        cardModal(card, "view")
       }
     });
   });
