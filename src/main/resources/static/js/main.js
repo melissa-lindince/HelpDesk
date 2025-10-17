@@ -88,9 +88,9 @@ export async function handleAction(cardId, action, cards) {
     try {
         cards = await getTickets();
         console.log(cards, 33)
-        filteredCards = [...cards];
+        filteredCards = cards.filter(card => card.responsable === "Fernanda Tisco");
         renderCards(container, filteredCards);
     } catch {
-        // container.innerHTML = `<p>Erro ao carregar tickets.</p>`;
+        container.innerHTML = `<p>Erro ao carregar tickets.</p>`;
     }
 })();

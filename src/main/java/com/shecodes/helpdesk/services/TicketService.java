@@ -12,6 +12,7 @@ import com.shecodes.helpdesk.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.shecodes.helpdesk.models.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,6 +61,15 @@ public class TicketService {
             ticketToUpdate.setPriority(ticket.getPriority());
             setDueDate(ticket.getPriority(), ticketToUpdate);
         }
+
+        if (ticket.getResponsableUser() != null) {
+            Integer responsableId = ticket.getResponsableUser().getId();
+            User responsable = 
+                userRepository.findById(responsableId)
+                .orElseThrow(() -> new NotFoundException("Responsável com ID " + responsableId + " não encontrado"));
+            ticketToUpdate.setResponsableUser(responsable);
+        }
+
             return ticketRepository.save(ticketToUpdate);
         }
 

@@ -84,6 +84,7 @@ export async function cardModal(card = null, mode = "view", onSaveCallback) {
   const responsableSelect = modalOverlay.querySelector("#card-responsable");
 
   let users = [];
+
   try {
     users = await getUserName();
     responsableSelect.innerHTML = '<option value="">Selecione</option>';
@@ -101,13 +102,11 @@ export async function cardModal(card = null, mode = "view", onSaveCallback) {
   function formatDateForInput(dateString) {
     if (!dateString) return "";
 
-    // Se vier no formato brasileiro "dd/MM/yyyy"
     if (dateString.includes("/")) {
       const [day, month, year] = dateString.split("/");
       return `${year}-${month}-${day}`;
     }
 
-    // Se vier no formato ISO "2025-10-16T00:00:00"
     const date = new Date(dateString);
     if (isNaN(date)) return "";
     const year = date.getFullYear();
@@ -120,8 +119,10 @@ export async function cardModal(card = null, mode = "view", onSaveCallback) {
     const responsableName = card.responsable || "";
     if (responsableName) {
       const matchedUser = users.find(u => u.name === responsableName);
+
       if (matchedUser) {
         responsableSelect.value = matchedUser.id;
+
       } else {
         const tempOption = document.createElement("option");
         tempOption.value = "temp";
@@ -138,6 +139,7 @@ export async function cardModal(card = null, mode = "view", onSaveCallback) {
 
     form.querySelector("#card-title").value = card.title || "";
     form.querySelector("#card-description").value = card.description || "";
+
     form.querySelector("#card-created").value = formatDateForInput(card.createdOn);
     form.querySelector("#card-dueDate").value = formatDateForInput(card.dueDate);
     form.querySelector("#card-author").value = card.author || "";
@@ -180,7 +182,7 @@ export async function cardModal(card = null, mode = "view", onSaveCallback) {
       createdOn: form.querySelector("#card-created").value,
       dueDate: form.querySelector("#card-dueDate").value,
       responsableUserId: form.querySelector("#card-responsable").value,
-      authorId: 6
+      authorId: 6,
     };
 
     try {
@@ -192,8 +194,10 @@ export async function cardModal(card = null, mode = "view", onSaveCallback) {
       } else if (card && mode === "edit") {
         console.log("Atualizando ticket:", card.id, payload);
         result = await updateTicket(card.id, payload);
+
         const tickets = await getTickets();
         refresh(tickets)
+
         console.log("Ticket atualizado:", result);
       }
       
@@ -210,7 +214,7 @@ export async function cardModal(card = null, mode = "view", onSaveCallback) {
 
  function refresh(tickets) {
     document.addEventListener('DOMContentLoaded', () => {
-
+    
     const container = document.getElementById('cardsGrid');
     renderCards(container, tickets);
   })

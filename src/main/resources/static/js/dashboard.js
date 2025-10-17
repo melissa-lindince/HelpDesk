@@ -31,8 +31,17 @@ import { cardModal } from "./components/cardModal.js";
 
   const btnNewCard = document.getElementById("newCard")
   btnNewCard.addEventListener('click', () => {
-    cardModal(null, "create")
-  })
+    cardModal(null, "create", async () => {
+      try {
+        cards = await getTickets();        // pega tickets atualizados do banco
+        filteredCards = [...cards];        // atualiza os filtros
+        renderTable(filteredCards, tableBody, applyFilters);  // renderiza a tabela
+        updateElementSummary(filteredCards); // atualiza resumo
+      } catch (err) {
+        console.error('Erro ao atualizar tickets:', err);
+      }
+    });
+});
 
   searchInput.addEventListener("input", () => applyFilters());
   statusFilter.addEventListener("change", () => applyFilters());

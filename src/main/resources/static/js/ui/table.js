@@ -35,7 +35,7 @@ export function renderTable(cards, tableBody, onStatusChange) {
     return;
   }
 
-  tableBody.innerHTML = cards.map(createTableRow).join('');
+  tableBody.innerHTML = cards.map(createTableRow).reverse().join('');
 
   const rows = tableBody.querySelectorAll('tr');
   rows.forEach(row => {
@@ -52,10 +52,10 @@ export function renderTable(cards, tableBody, onStatusChange) {
 
       if (card) {
         cardModal(card, "view", async () => {
-      const updatedCards = await getTickets();
-      renderTable(updatedCards, tableBody, onStatusChange);
-      updateElementSummary(updatedCards);
-    });
+          const updatedCards = await getTickets();
+          renderTable(updatedCards, tableBody, onStatusChange);
+          updateElementSummary(updatedCards);
+        });
       }
 
     });
@@ -103,7 +103,7 @@ export function renderTable(cards, tableBody, onStatusChange) {
           if (typeof onStatusChange === 'function') {
             await onStatusChange(cardId, newStatus);
           }
-          freshRows()
+          
           renderTable(updatedCard, tableBody, onStatusChange);
           updateElementSummary(updatedCard)
         } catch (err) {
