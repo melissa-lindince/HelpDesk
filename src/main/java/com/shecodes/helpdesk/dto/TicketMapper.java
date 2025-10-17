@@ -40,9 +40,10 @@ public class TicketMapper {
 
     public static Ticket toModel(TicketPatchDTO dto){
     Ticket ticket = new Ticket();
-       if(dto.category() != null) ticket.setCategory(dto.category());
+        if(dto.category() != null) ticket.setCategory(dto.category());
         if(dto.priority() != null) ticket.setPriority(dto.priority());
-
+        if(dto.description() != null) ticket.setDescription(dto.description());
+        if(dto.title() != null) ticket.setTitle(dto.title());
     return ticket;
 }
     //transformar um ticket em dto ->

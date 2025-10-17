@@ -44,13 +44,20 @@ export function renderTable(cards, tableBody, onStatusChange) {
   });
 
   const freshRows = tableBody.querySelectorAll('tr');
+  
   freshRows.forEach(row => {
     row.addEventListener('click', (e) => {
       const id = row.dataset.id;
       const card = cards.find(c => c.id == id);
+
       if (card) {
-        cardModal(card, "view")
+        cardModal(card, "view", async () => {
+      const updatedCards = await getTickets();
+      renderTable(updatedCards, tableBody, onStatusChange);
+      updateElementSummary(updatedCards);
+    });
       }
+
     });
   });
 
@@ -96,7 +103,7 @@ export function renderTable(cards, tableBody, onStatusChange) {
           if (typeof onStatusChange === 'function') {
             await onStatusChange(cardId, newStatus);
           }
-
+          freshRows()
           renderTable(updatedCard, tableBody, onStatusChange);
           updateElementSummary(updatedCard)
         } catch (err) {

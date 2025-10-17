@@ -1,9 +1,8 @@
 import { createTicket, getTickets, updateTicket } from "../api/ticket.js";
 import { getUserName } from "../api/user.js";
-import { renderTable } from "../ui/table.js";
 import { renderCards } from "./cards.js";
 
-const container = document.getElementById('cardsGrid');
+
 
 export function getButtonText(mode) {
   return {
@@ -13,7 +12,7 @@ export function getButtonText(mode) {
   }[mode];
 }
 
-export async function cardModal(card = null, mode = "view") {
+export async function cardModal(card = null, mode = "view", onSaveCallback) {
   const modalOverlay = document.createElement("div");
   modalOverlay.classList.add("modal-overlay");
 
@@ -161,12 +160,15 @@ export async function cardModal(card = null, mode = "view") {
     if (!isEditing && mode === "view") {
       isEditing = true;
       mode = "edit";
+
       form.querySelectorAll("input, textarea, select").forEach(el => el.disabled = false);
       actionBtn.textContent = getButtonText("edit");
       cancelBtn.textContent = "Cancelar";
+
       form.querySelector("#card-author").disabled = true;
       form.querySelector("#card-created").disabled = true;
       form.querySelector("#card-dueDate").disabled = true;
+
       return;
     }
 
@@ -186,19 +188,34 @@ export async function cardModal(card = null, mode = "view") {
       if (mode === "create") {
         result = await createTicket(payload);
         console.log("Ticket criado:", result);
+
       } else if (card && mode === "edit") {
         console.log("Atualizando ticket:", card.id, payload);
         result = await updateTicket(card.id, payload);
         const tickets = await getTickets();
-        renderCards(container, tickets);
+        refresh(tickets)
         console.log("Ticket atualizado:", result);
       }
+      
       modalOverlay.remove();
+      if (typeof onSaveCallback === "function") {
+        onSaveCallback();
+      }
+
     } catch (err) {
       console.error("Erro ao salvar ticket:", err);
       alert("Erro ao salvar ticket");
     }
   });
+
+ function refresh(tickets) {
+    document.addEventListener('DOMContentLoaded', () => {
+
+    const container = document.getElementById('cardsGrid');
+    renderCards(container, tickets);
+  })
+
+ } 
 
   cancelBtn.addEventListener("click", () => modalOverlay.remove());
 }
