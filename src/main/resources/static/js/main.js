@@ -95,6 +95,17 @@ export async function handleAction(cardId, action, cards) {
     }
 }
 
+export async function refreshGrid() {
+    try {
+        cards = await getTickets();
+        filteredCards = cards.filter(card => card.responsable === "Fernanda Tisco");
+        filterCards(); // usa o filterCards pra aplicar os filtros atuais
+    } catch {
+        container.innerHTML = `<p>Erro ao carregar tickets.</p>`;
+    }
+}
+
+
 (async function init() {
     try {
         cards = await getTickets();
