@@ -47,7 +47,7 @@ export function createCard(card, cards) {
             </div>
             <div class="detail-row">
                 <span class="detail-label">Criado em:</span>
-                <span class="value-label">${card.createdAt}</span>
+                <span class="value-label">${card.createdOn}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Vencimento:</span>
