@@ -30,6 +30,7 @@ import { updateElementSummary } from "./update-summary.js";
   }
 
 export function renderTable(cards, tableBody, onStatusChange) {
+  console.log(555, cards)
   if (!cards || cards.length === 0) {
     tableBody.innerHTML = '<tr><td colspan="7">Nenhum card encontrado com os filtros aplicados.</td></tr>';
     return;
@@ -103,7 +104,7 @@ export function renderTable(cards, tableBody, onStatusChange) {
           if (typeof onStatusChange === 'function') {
             await onStatusChange(cardId, newStatus);
           }
-          freshRows()
+          
           renderTable(updatedCard, tableBody, onStatusChange);
           updateElementSummary(updatedCard)
         } catch (err) {
