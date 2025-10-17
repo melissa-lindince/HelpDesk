@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="./assets/dashboard.css"/>
     <link rel="stylesheet" href="./assets/edit-card.css"/>
 
-    <script type="module" src="./js/dashboard.js"></script>
+    <script type="module" src="./js/dashboard.js" defer></script>
+
     <script src="https://unpkg.com/lucide@latest"></script>
   </head>
 
@@ -92,7 +93,7 @@
       <section class="filters">
         <div class="filter-input">
           <i class="filter-icon" data-lucide="search"></i>
-          <input type="text" id="searchInput" id="searchInput" placeholder="Buscar card">
+          <input type="text" id="filterInput" id="searchInput" placeholder="Buscar card">
         </div>
         <select id="statusFilter" class="filter-select">
           <option value="">Todos os Status</option>
@@ -149,6 +150,10 @@
       </section>
     </main>
 
+    <script type="module" src="js/components/test.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+    <script type="module" src="js/api/ticket.js"></script>
+    <script type="module" src="js/components/test.js"></script>
     <script>
       lucide.createIcons();
     </script>
