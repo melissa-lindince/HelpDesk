@@ -1,5 +1,5 @@
 import { getTickets, updateTicketStatus } from './api/ticket.js';
-import { formatText } from "./utils/format.js";
+import { formatText } from './helpers/helpers.js';
 import { renderCards } from './components/cards.js';
 import { cardModal } from './components/cardModal.js';
 
@@ -25,18 +25,13 @@ function filterCards() {
     const priority = priorityFilter.value;
     const status = statusFilter.value;
 
-    filteredCards = cards.filter(card => 
-        filterUser(card) &&
+    filteredCards = cards.filter(card =>
         filterSearch(card.title, card.description, searchText) &&
         filterPriority(card.priority, priority) &&
         filterStatus(card.status, status)
     );
 
     renderCards(container, filteredCards);
-}
-
-function filterUser(card) {
-    return card.responsable === "Fernanda Tisco";
 }
 
 function filterSearch(title, description, searchText) {
@@ -89,20 +84,13 @@ export async function handleAction(cardId, action, cards) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    searchInput.addEventListener('input', filterCards);
-priorityFilter.addEventListener('change', filterCards);
-statusFilter.addEventListener('change', filterCards);
-  init();
-});
-async function init() {
-  try {
-    cards = await getTickets();
-    filteredCards = cards.filter(card => card.responsable === "Fernanda Tisco");
-    renderCards(container, filteredCards);
-  } catch {
-    container.innerHTML = `<p>Erro ao carregar tickets.</p>`;
-  }
-}
-
-
+(async function init() {
+    try {
+        cards = await getTickets();
+        console.log(cards, 33)
+        filteredCards = cards.filter(card => card.responsable === "Fernanda Tisco");
+        renderCards(container, filteredCards);
+    } catch {
+        container.innerHTML = `<p>Erro ao carregar tickets.</p>`;
+    }
+})();
