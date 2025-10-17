@@ -164,6 +164,9 @@ export async function cardModal(card = null, mode = "view") {
       form.querySelectorAll("input, textarea, select").forEach(el => el.disabled = false);
       actionBtn.textContent = getButtonText("edit");
       cancelBtn.textContent = "Cancelar";
+      form.querySelector("#card-author").disabled = true;
+      form.querySelector("#card-created").disabled = true;
+      form.querySelector("#card-dueDate").disabled = true;
       return;
     }
 
