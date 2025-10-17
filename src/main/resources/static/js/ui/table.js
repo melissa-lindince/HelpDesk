@@ -30,13 +30,12 @@ import { updateElementSummary } from "./update-summary.js";
   }
 
 export function renderTable(cards, tableBody, onStatusChange) {
-  console.log(555, cards)
   if (!cards || cards.length === 0) {
     tableBody.innerHTML = '<tr><td colspan="7">Nenhum card encontrado com os filtros aplicados.</td></tr>';
     return;
   }
 
-  tableBody.innerHTML = cards.map(createTableRow).join('');
+  tableBody.innerHTML = cards.map(createTableRow).reverse().join('');
 
   const rows = tableBody.querySelectorAll('tr');
   rows.forEach(row => {
@@ -53,10 +52,10 @@ export function renderTable(cards, tableBody, onStatusChange) {
 
       if (card) {
         cardModal(card, "view", async () => {
-      const updatedCards = await getTickets();
-      renderTable(updatedCards, tableBody, onStatusChange);
-      updateElementSummary(updatedCards);
-    });
+          const updatedCards = await getTickets();
+          renderTable(updatedCards, tableBody, onStatusChange);
+          updateElementSummary(updatedCards);
+        });
       }
 
     });

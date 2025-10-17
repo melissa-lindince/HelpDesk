@@ -173,7 +173,7 @@ export async function cardModal(card = null, mode = "view", onSaveCallback) {
 
       return;
     }
-    console.log(22, form.querySelector("#card-responsable").value)
+
     const payload = {
       title: form.querySelector("#card-title").value,
       description: form.querySelector("#card-description").value,
@@ -214,7 +214,7 @@ export async function cardModal(card = null, mode = "view", onSaveCallback) {
 
  function refresh(tickets) {
     document.addEventListener('DOMContentLoaded', () => {
-
+    
     const container = document.getElementById('cardsGrid');
     renderCards(container, tickets);
   })
