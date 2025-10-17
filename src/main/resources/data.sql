@@ -14,6 +14,9 @@ ON DUPLICATE KEY UPDATE name = VALUES(name);
 INSERT INTO users (id, name, created_at) VALUES (5, 'Carla Menezes', '2025-10-13 10:25:00')
 ON DUPLICATE KEY UPDATE name = VALUES(name);
 
+INSERT INTO users (id, name, created_at) VALUES (6, 'Fernanda Tisco', '2025-10-26 10:35:00')
+ON DUPLICATE KEY UPDATE name = VALUES(name);
+
 
 -- TICKETS (somente se não existir nenhum)
 INSERT INTO tickets (title, description, created_on, due_date, end_date, category, priority, status, author_id, responsable_id)

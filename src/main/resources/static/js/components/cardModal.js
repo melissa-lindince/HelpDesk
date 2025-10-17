@@ -58,7 +58,7 @@ export async function cardModal(card = null, mode = "view") {
         <div class="form-row">
           <div class="form-group">
             <label for="card-created">Criado em</label>
-            <input type="text" id="card-created" name="created" disabled />
+            <input type="date" id="card-created" name="created" disabled />
           </div>
           <div class="form-group">
             <label for="card-dueDate">Data de Vencimento *</label>
@@ -99,6 +99,24 @@ export async function cardModal(card = null, mode = "view") {
     responsableSelect.innerHTML = '<option value="">Erro ao carregar usuários</option>';
   }
 
+  function formatDateForInput(dateString) {
+    if (!dateString) return "";
+
+    // Se vier no formato brasileiro "dd/MM/yyyy"
+    if (dateString.includes("/")) {
+      const [day, month, year] = dateString.split("/");
+      return `${year}-${month}-${day}`;
+    }
+
+    // Se vier no formato ISO "2025-10-16T00:00:00"
+    const date = new Date(dateString);
+    if (isNaN(date)) return "";
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
   if (card) {
     const responsableName = card.responsable || "";
     if (responsableName) {
@@ -121,8 +139,8 @@ export async function cardModal(card = null, mode = "view") {
 
     form.querySelector("#card-title").value = card.title || "";
     form.querySelector("#card-description").value = card.description || "";
-    form.querySelector("#card-created").value = card.createdAt || "";
-    form.querySelector("#card-dueDate").value = card.dueDate || "";
+    form.querySelector("#card-created").value = formatDateForInput(card.createdOn);
+    form.querySelector("#card-dueDate").value = formatDateForInput(card.dueDate);
     form.querySelector("#card-author").value = card.author || "";
   }
 
@@ -132,6 +150,12 @@ export async function cardModal(card = null, mode = "view") {
     if (mode === "view") el.disabled = true;
     if (mode === "create") el.disabled = false;
   });
+
+  if (mode === "create") {
+    form.querySelector("#card-author").closest(".form-group").style.display = "none";
+    form.querySelector("#card-created").closest(".form-group").style.display = "none";
+    form.querySelector("#card-dueDate").closest(".form-group").style.display = "none";
+  }
 
   actionBtn.addEventListener("click", async () => {
     if (!isEditing && mode === "view") {
@@ -148,8 +172,10 @@ export async function cardModal(card = null, mode = "view") {
       description: form.querySelector("#card-description").value,
       category: form.querySelector("#card-category").value.toUpperCase(),
       priority: form.querySelector("#card-priority").value.toUpperCase(),
-      responsableId: form.querySelector("#card-responsable").value,
-      dueDate: form.querySelector("#card-dueDate").value
+      createdOn: form.querySelector("#card-created").value,
+      dueDate: form.querySelector("#card-dueDate").value,
+      responsableUserId: form.querySelector("#card-responsable").value,
+      authorId: 6
     };
 
     try {

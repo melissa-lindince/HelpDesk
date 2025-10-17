@@ -71,6 +71,7 @@ export async function createTicket(ticketData) {
             category: ticket.category,
             priority: ticket.priority,
             status: ticket.status.toLowerCase(),
+            authorId: 6
         };
     } catch (error) {
         console.error(error);
