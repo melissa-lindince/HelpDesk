@@ -265,6 +265,18 @@ th, td {
   white-space: nowrap;
 }
 
+.title_ticket, .description_ticket{
+   color: rgba(54, 65, 83, 1);
+}
+
+.title_ticket{
+    font-weight : 600;
+}
+
+.description_ticket{
+    font-size: 12px;
+}
+
 tbody tr:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   transform: translateY(-1px);

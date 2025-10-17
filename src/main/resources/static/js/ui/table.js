@@ -8,7 +8,7 @@ import { updateElementSummary } from "./update-summary.js";
 
     return `
       <tr data-id="${card.id}">
-        <td><strong>${card.title}</strong><p>${card.description.substring(0, 50)}...</p></td>
+        <td><p class="title_ticket">${card.title}</p><p class="description_ticket">${card.description.substring(0, 50)}...</p></td>
         <td><span class="tag ${getCategoryTag(card.category)}">${card.category}</span></td>
         <td><span class="tag ${getPriorityTag(card.priority)}">${card.priority}</span></td>
         <td>

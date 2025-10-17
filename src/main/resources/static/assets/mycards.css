@@ -130,16 +130,19 @@
 .priority-badge.alta {
     background-color: #ffe5e5;
     color: #d32f2f;
+    text-transform : capitalize;
 }
 
 .priority-badge.media {
     background-color: #fff4e5;
     color: #f57c00;
+    text-transform : capitalize;
 }
 
 .priority-badge.baixa {
     background-color: #e5f8f3;
     color: #00a86b;
+    text-transform : capitalize;
 }
 
 .card-title {
@@ -188,7 +191,9 @@
     font-weight: 600;
     border: 1px solid var(--line-color);
     background-color: white;
+    text-transform : capitalize;
 }
+
 
 .card-actions {
     display: flex;
