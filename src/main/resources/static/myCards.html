@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="./assets/header-layout.css"/>
   <link rel="stylesheet" href="./assets/mycards.css"/>
   <link rel="stylesheet" href="./assets/edit-card.css"/>
-
+  
+  <script type="module" src="./js/mycards.js" defer></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
@@ -68,14 +69,14 @@
     <select id="priorityFilter" class="filter-select">
       <option value="">Todas Prioridades</option>
       <option value="alta">Alta</option>
-      <option value="média">Média</option>
+      <option value="media">Média</option>
       <option value="baixa">Baixa</option>
     </select>
     <select id="statusFilter" class="filter-select">
       <option value="">Todos os Status</option>
-      <option value="em andamento">Em andamento</option>
+      <option value="em_andamento">Em andamento</option>
       <option value="pendente">Pendente</option>
-      <option value="concluido">Concluído</option>
+      <option value="finalizado">Concluído</option>
     </select>
   </div>
 
@@ -86,9 +87,9 @@
     lucide.createIcons();
 </script>
 
-<script type="module" src="js/main.js"></script>
-<script type="module" src="js/api/ticket.js"></script>
-<script type="module" src="js/components/cardModal.js"></script>
+
+<!-- <script type="module" src="js/api/ticket.js"></script>
+<script type="module" src="js/components/cardModal.js"></script> -->
 
 </body>
 </html>

@@ -8,7 +8,7 @@ import { cardModal } from "./components/cardModal.js";
 
   const tableBody = document.querySelector(".table-section tbody");
   const statusFilter = document.getElementById('statusFilter');
-  const searchInput = document.getElementById("filterInput");
+  const searchInput = document.getElementById("searchInput");
   
   const btnDataVencimento = document.getElementById("btnDataVencimento");
   const calendarModal = document.getElementById("calendarModal");

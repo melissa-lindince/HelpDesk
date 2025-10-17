@@ -1,5 +1,4 @@
-import { handleAction } from "../main.js";
-
+import { handleAction } from "../mycards.js";
 
 export function getStatusText(status) {
     const statusMap = {
