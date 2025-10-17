@@ -66,13 +66,12 @@ public class TicketController {
         Ticket ticket = toModel(ticketPutRequestDto);
         return toDTO(ticketService.updateTicket(ticket,id));
     }
-@PatchMapping("/{id}")
-    public TicketResponseDTO updateTicketPatch(@RequestBody TicketPatchDTO ticketPatchDTO,@PathVariable("id") Integer id){
-    Ticket ticket = TicketMapper.toModel(ticketPatchDTO);
-    return TicketMapper.toDTO(ticketService.updateTicket(ticket, id));
-}
 
-
+    @PatchMapping("/{id}")
+        public TicketResponseDTO updateTicketPatch(@RequestBody TicketPatchDTO ticketPatchDTO,@PathVariable("id") Integer id){
+        Ticket ticket = TicketMapper.toModel(ticketPatchDTO);
+        return TicketMapper.toDTO(ticketService.updateTicket(ticket, id));
+    }
 
     @PatchMapping("/status/{id}")
     public TicketResponseDTO  updateStatusTicket(@Valid @RequestBody TicketPatchStatusDto ticketPatchStatusDto, @PathVariable("id") Integer id){

@@ -44,16 +44,24 @@ public class TicketService {
         Ticket ticketToUpdate = ticketRepository.findById(id).orElseThrow(() -> new NotFoundException("Ticket não encontrado."));
 
        
-    if (ticket.getCategory() != null) {
-        ticketToUpdate.setCategory(ticket.getCategory());
-    }
+        if (ticket.getCategory() != null) {
+            ticketToUpdate.setCategory(ticket.getCategory());
+        }
 
-    if (ticket.getPriority() != null) {
-        ticketToUpdate.setPriority(ticket.getPriority());
-        setDueDate(ticket.getPriority(), ticketToUpdate);
-    }
-        return ticketRepository.save(ticketToUpdate);
-    }
+        if (ticket.getDescription() != null) {
+            ticketToUpdate.setDescription(ticket.getDescription() );
+        }
+
+        if (ticket.getTitle() != null) {
+            ticketToUpdate.setTitle(ticket.getTitle());
+        }
+
+        if (ticket.getPriority() != null) {
+            ticketToUpdate.setPriority(ticket.getPriority());
+            setDueDate(ticket.getPriority(), ticketToUpdate);
+        }
+            return ticketRepository.save(ticketToUpdate);
+        }
 
     public Ticket updateStatusTicket(Integer id, Status status){
         Ticket ticketToUpdateStatus = ticketRepository.findById(id).orElseThrow(() -> new NotFoundException("Ticket não encontrado."));
