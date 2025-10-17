@@ -1,5 +1,6 @@
 import { createTicket, getTickets, updateTicket } from "../api/ticket.js";
 import { getUserName } from "../api/user.js";
+import { refreshGrid } from "../main.js";
 import { renderCards } from "./cards.js";
 
 
@@ -194,7 +195,7 @@ export async function cardModal(card = null, mode = "view", onSaveCallback) {
       } else if (card && mode === "edit") {
         console.log("Atualizando ticket:", card.id, payload);
         result = await updateTicket(card.id, payload);
-
+        refreshGrid()
         const tickets = await getTickets();
         refresh(tickets)
 
