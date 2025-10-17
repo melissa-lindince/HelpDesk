@@ -1,15 +1,21 @@
 import { getTickets, updateTicketStatus } from './api/ticket.js';
-import { formatText } from './helpers/helpers.js';
+import { formatText } from "./utils/format.js";
 import { renderCards } from './components/cards.js';
 import { cardModal } from './components/cardModal.js';
 
-const searchInput = document.getElementById('searchInput');
-const priorityFilter = document.getElementById('priorityFilter');
-const statusFilter = document.getElementById('statusFilter');
-const container = document.getElementById('cardsGrid');
+let searchInput = document.getElementById('searchInput');
+let priorityFilter = document.getElementById('priorityFilter');
+let statusFilter = document.getElementById('statusFilter');
+let container = document.getElementById('cardsGrid');
 
 let cards = [];
 let filteredCards = [];
+
+if (searchInput && priorityFilter && statusFilter) {
+    searchInput.addEventListener('input', filterCards);
+    priorityFilter.addEventListener('change', filterCards);
+    statusFilter.addEventListener('change', filterCards);
+}
 
 export function getNextStatus(currentStatus) {
     const statusFlow = {
@@ -25,13 +31,18 @@ function filterCards() {
     const priority = priorityFilter.value;
     const status = statusFilter.value;
 
-    filteredCards = cards.filter(card =>
+    filteredCards = cards.filter(card => 
+        filterUser(card) &&
         filterSearch(card.title, card.description, searchText) &&
         filterPriority(card.priority, priority) &&
         filterStatus(card.status, status)
     );
 
     renderCards(container, filteredCards);
+}
+
+function filterUser(card) {
+    return card.responsable === "Fernanda Tisco";
 }
 
 function filterSearch(title, description, searchText) {
