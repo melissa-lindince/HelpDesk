@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <!-- inicial configs-->
   <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -10,15 +9,13 @@
     <link rel="stylesheet" href="./assets/header-layout.css"/>
     <link rel="stylesheet" href="./assets/dashboard.css"/>
     <link rel="stylesheet" href="./assets/edit-card.css"/>
-    <!-- alterar src se for necessário -->
+
     <script type="module" src="./js/dashboard.js" defer></script>
 
-    <!-- import icons: -->
     <script src="https://unpkg.com/lucide@latest"></script>
   </head>
 
   <body>
-    <!-- HEADER -->
     <header class="top-bar">
       <div class="left-header">
         <div class="logo">
@@ -58,21 +55,18 @@
       </div>
     </header>
 
-    <!-- BODY -->
     <main class="dashboard">
       <div class="dashboard-header">
         <h1>Dashboard</h1>
         <p>Gerencie todos os seus cards em um só lugar</p>
       </div>
 
-      <!-- Botão Novo Card -->
       <div class="add-card-container">
         <button class="new-card" id="newCard">
           <i data-lucide="plus"></i> Novo card
         </button>
       </div>
 
-      <!-- Cards de resumo -->
       <section class="summary">
         <div class="summary-card">
           <div class="card-icon"><i data-lucide="wallet-cards"></i></div>
@@ -96,7 +90,6 @@
         </div>
       </section>
 
-      <!-- Filtros -->
       <section class="filters">
         <div class="filter-input">
           <i class="filter-icon" data-lucide="search"></i>
@@ -108,9 +101,9 @@
           <option value="pendente">Pendente</option>
           <option value="finalizado">Finalizado</option>
         </select>
-        <!-- Botão que abre o calendário -->
+
         <button id="btnDataVencimento" class="calendar-btn"> Data de vencimento</button>
-        <!-- Calendário (inicialmente oculto) -->
+
         <div id="calendarModal" class="calendar-modal">
               <label for="startDate">De:</label>
               <input type="date" id="startDate">
@@ -120,9 +113,9 @@
         </div>
       </section>
 
-      <!-- Tabela -->
       <section class="table-section">
-        <table>
+        <div class="table-container">
+          <table>
           <thead>
             <tr>
               <th>Cards</th>
@@ -137,8 +130,10 @@
           <tbody id="tbody">
           </tbody>
         </table>
+        </div>
+        
 
-        <div class="pagination">
+        <!-- <div class="pagination">
           <p>Mostrando 1 até 7 de 53 cards</p>
           <label>Itens por página:
             <select>
@@ -151,7 +146,7 @@
             <span>1</span>
             <button>Próximo ▶</button>
           </div>
-        </div>
+        </div> -->
       </section>
     </main>
 
