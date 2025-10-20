@@ -8,7 +8,7 @@ O projeto foi desenvolvido como parte do **Projeto Final do Bootcamp #ElasTech F
 ## :woman_technologist: **Equipe SheCodes**
 | Back End | Front End |
 |-------------|---------|
-| [Larissa Faria Silva](https://github.com/larifar) | [Melisa Lindince](https://github.com/melissa-lindince) 
+| [Larissa Faria Silva](https://github.com/larifar) | [Melissa Lindince](https://github.com/melissa-lindince) 
 | [Vanessa Navegante Forin](https://github.com/VanessaNForin) | [Thais Machado](https://github.com/thaixx)
 
 ## :rocket: **Tecnologias Usadas**
